@@ -1,1 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaféMisu – Menu</title>
 
+<!-- Typo premium -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #F9F5F1;
+        font-family: 'Playfair Display', serif;
+        color: #A87555;
+        margin: 0;
+        padding: 0 20px 120px;
+        line-height: 1.6;
+
+        background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+        background-size: 6px 6px;
+    }
+
+    h1 {
+        font-size: 2.8rem;
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 1.9rem;
+        margin-top: 40px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #A87555;
+        display: inline-block;
+        padding-bottom: 2px;
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(168,117,85,0.2);
+    }
+
+    .name {
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .price {
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+
+    /* Bouton pastille */
+    .btn-add {
+        background: rgba(168,117,85,0.15);
+        border: 2px solid #A87555;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        cursor: pointer;
+        transition: 0.2s ease;
+        margin-left: 12px;
+    }
+
+    .btn-add:hover {
+        background: rgba(168,117,85,0.25);
+        transform: scale(1.06);
+    }
+
+    .btn-add img {
+        width: 26px;
+        height: 26px;
+        opacity: 0.9;
+    }
+
+    .plus {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background: #ffffff;
+        border: 1.4px solid #A87555;
+        color: #A87555;
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    /* Panier sticky */
+    #cart-bar {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: #A87555;
+        color: #F9F5F1;
+        padding: 15px;
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: 600;
+        display: none;
+        z-index: 999;
+    }
+
+    #cart-bar:hover { opacity: 0.9; cursor: pointer; }
+
+</style>
+</head>
+
+<body>
+
+<h1>Menu CaféMisu</h1>
+
+<!-- SECTION LATTES -->
+<h2>Les lattés</h2>
+
+<div class="item">
+    <span class="name">Iced Americano</span>
+    <span class="price">4.000</span>
+    <button class="btn-add" onclick="addToCart('Iced Americano', 4000)">
+        <img src="tiramisu-icon.png">
+        <span class="plus">+</span>
+    </button>
+</div>
+
+<div class="item">
+    <span class="name">Spanish Iced Latte</span>
+    <span class="price">5.500</span>
+    <button class="btn-add" onclick="addToCart('Spanish Iced Latte', 5500)">
+        <img src="tiramisu-icon.png">
+        <span class="plus">+</span>
+    </button>
+</div>
+
+<div class="item">
+    <span class="name">Iced Coffee Latte</span>
+    <span class="price">4.500</span>
+    <button class="btn-add" onclick="addToCart('Iced Coffee Latte', 4500)">
+        <img src="tiramisu-icon.png">
+        <span class="plus">+</span>
+    </button>
+</div>
+
+<!-- SECTION MATCHAS -->
+<h2>Les matchas</h2>
+
+<div class="item">
+    <span class="name">Iced Matcha Latte</span>
+    <span class="price">5.500</span>
+    <button class="btn-add" onclick="addToCart('Iced Matcha Latte', 5500)">
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
+    </button>
+</div>
+
+<div class="item">
+    <span class="name">Coconut Matcha Cloud</span>
+    <span class="price">5.500</span>
+    <button class="btn-add" onclick="addToCart('Coconut Matcha Cloud', 5500)">
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
+    </button>
+</div>
+
+<div class="item">
+    <span class="name">Strawberry Matcha</span>
+    <span class="price">6.500</span>
+    <button class="btn-add" onclick="addToCart('Strawberry Matcha', 6500)">
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
+    </button>
+</div>
+
+<div class="item">
+    <span class="name">Mango Matcha</span>
+    <span class="price">6.500</span>
+    <button class="btn-add" onclick="addToCart('Mango Matcha', 6500)">
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
+    </button>
+</div>
+
+<!-- SECTION TIRAMISU -->
+<h2>Les tiramisus</h2>
+
+<div class="item">
+    <span class="name">Spéculos</span>
+    <span class="price">5.500</span>
+    <button class="btn-add" onclick="addToCart('Tiramisu Spéculos', 5500)">
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
+    </button>
+</div>
+
+<div class="item">
+    <span class="name">Ferrero</span>
+    <span class="price">5.500</span>
+    <button class="btn-add" onclick="addToCart('Tiramisu Ferrero', 5500)">
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
+    </button>
+</div>
+
+<div class="item">
+    <span class="name">Bueno</span>
+    <span class="price">5.500</span>
+    <button class="btn-add" onclick="addToCart('Tiramisu Bueno', 5500)">
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
+    </button>
+</div>
+
+<div class="item">
+    <span class="name">Pistache</span>
+    <span class="price">5.500</span>
+    <button class="btn-add" onclick="addToCart('Tiramisu Pistache', 5500)">
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
+    </button>
+</div>
+
+<div class="item">
+    <span class="name">Oreo</span>
+    <span class="price">5.000</span>
+    <button class="btn-add" onclick="addToCart('Tiramisu Oreo', 5000)">
+        <img src="tiramisu-icon.png"><span class="plus">+</span>
+    </button>
+</div>
+
+<!-- PANIER FLUIDE BAS DE PAGE -->
+<div id="cart-bar" onclick="openCart()">
+    🛍️ Voir mon panier
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
