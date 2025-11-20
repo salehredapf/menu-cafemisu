@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CaféMisu — Accueil</title>
 
-  <!-- Typographie serif élégante proche du menu -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -16,7 +15,6 @@
       background-color: #F9F5F1;
       color: #A87555;
 
-      /* Texture papier ultra légère */
       background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
       background-size: 6px 6px;
 
@@ -37,10 +35,7 @@
     }
 
     @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
@@ -66,7 +61,7 @@
 
     .btn {
       display: block;
-      padding: 14px 30px;
+      padding: 15px 30px;
       margin: 12px auto;
       background: #A87555;
       color: #F9F5F1;
@@ -74,8 +69,8 @@
       font-size: 1.15rem;
       font-weight: 600;
       text-decoration: none;
-      transition: 0.25s ease;
       width: 80%;
+      transition: 0.25s ease;
     }
 
     .btn:hover {
@@ -83,8 +78,8 @@
       transform: translateY(-3px);
     }
 
-    /* Bouton WhatsApp épuré */
-    .btn-commande {
+    /* WhatsApp épuré */
+    .btn-whatsapp {
       background: transparent;
       border: 2px solid #A87555;
       color: #A87555;
@@ -95,9 +90,14 @@
       width: 80%;
     }
 
-    .btn-commande:hover {
+    .btn-whatsapp:hover {
       background: rgba(168,117,85,0.1);
       transform: translateY(-3px);
+    }
+
+    .wa-icon {
+      width: 22px;
+      height: 22px;
     }
 
   </style>
@@ -108,17 +108,14 @@
   <div class="container">
     <h1>cafémisu</h1>
 
-    <p>Découvrez nos desserts & boissons<br>faits avec passion.</p>
+    <p>Découvrez nos boissons & desserts<br>faits avec passion.</p>
 
-    <!-- Bouton Voir le menu -->
-    <a href="menu/cafemisu_menu.pdf" class="btn">
-      📄 Voir le menu
-    </a>
+    <!-- Bouton voir menu -->
+    <a href="menu.html" class="btn">📄 Voir le menu</a>
 
-    <!-- Bouton WhatsApp épuré avec icône -->
-    <a href="https://wa.me/2250716699999" class="btn btn-commande">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-           style="width:20px; height:20px; vertical-align:middle;" />
+    <!-- WhatsApp -->
+    <a href="https://wa.me/2250716699999" class="btn btn-whatsapp">
+      <img class="wa-icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
       Commander
     </a>
 
