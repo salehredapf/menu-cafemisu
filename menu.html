@@ -74,37 +74,30 @@
         background: #F3E5DB;
     }
 
-    /* BOUTON FLOTTANT */
+    /* NEW FLOATING ICON BUTTON */
     #floating-cart-btn {
         position: fixed;
         bottom: 22px;
         right: 22px;
-        width: 65px;
-        height: 65px;
-        background: #A87555;
-        border-radius: 50%;
-        border: none;
-        color: white;
-        font-size: 28px;
+        width: 70px;
+        height: 70px;
+        background: none !important;
+        border: none !important;
+        padding: 0;
+        cursor: pointer;
+        z-index: 999;
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.22);
-        cursor: pointer;
-        z-index: 999;
-        transition: 0.15s ease;
     }
 
-    #floating-cart-btn:hover {
-        transform: scale(1.12);
-    }
-
+    /* BUBBLE COUNT */
     #cart-count {
         position: absolute;
-        top: -4px;
-        right: -4px;
-        width: 22px;
-        height: 22px;
+        top: -6px;
+        right: -6px;
+        width: 26px;
+        height: 26px;
         background: white;
         border-radius: 50%;
         border: 2px solid #A87555;
@@ -112,11 +105,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: bold;
     }
 
-    /* BOTTOM SHEET (corrigé marges gauche/droite) */
+    /* BOTTOM SHEET */
     #cart-sheet {
         position: fixed;
         bottom: -100%;
@@ -131,11 +124,8 @@
         z-index: 1000;
         padding-top: 20px;
         padding-bottom: 20px;
-
-        /* NOUVELLES MARGES */
         padding-left: 28px;
         padding-right: 28px;
-
         overflow-y: auto;
     }
 
@@ -154,8 +144,6 @@
         align-items: center;
         padding: 14px 0;
         border-bottom: 1px solid rgba(168,117,85,0.25);
-
-        /* PETITE SÉCURITÉ GAUCHE/DROITE */
         padding-left: 8px;
         padding-right: 8px;
     }
@@ -285,8 +273,10 @@
 <div class="item"><span class="name">Pistache</span><span class="price">5.500</span><div class="add-btn" onclick="addToCart('Tiramisu Pistache',5500)">☕</div></div>
 <div class="item"><span class="name">Oreo</span><span class="price">5.000</span><div class="add-btn" onclick="addToCart('Tiramisu Oreo',5000)">☕</div></div>
 
+
 <!-- ========================= BOTTOM SHEET PANIER ========================= -->
 <div id="cart-sheet">
+
     <div id="sheet-header">
         <span>Votre panier</span>
         <span style="cursor:pointer" onclick="closeCart()">✕</span>
@@ -299,18 +289,29 @@
     </div>
 
     <button id="send-whatsapp" onclick="sendWhatsapp()">Commander sur WhatsApp</button>
+
+    <button onclick="closeCart()" 
+            style="
+                margin-top:18px;
+                width:100%;
+                padding:14px;
+                background:#C9B8AE;
+                color:white;
+                border:none;
+                border-radius:12px;
+                font-size:1.1rem;
+                font-weight:600;
+                cursor:pointer;">
+        Fermer
+    </button>
+
 </div>
 
-<!-- BOUTON FLOTTANT -->
-<button id="floating-cart-btn" onclick="openCart()"
-        style="display:flex; justify-content:center; align-items:center;">
-    
-    <img src="tiramisu-icon.png" 
-         style="width:28px; height:28px; object-fit:contain; margin-right:2px;">
-    
+<!-- BOUTON FLOTTANT (ICÔNE TIRAMISU) -->
+<button id="floating-cart-btn" onclick="openCart()">
+    <img src="tiramisu-icon.png" style="width:70px; height:70px; object-fit:contain;">
     <span id="cart-count">0</span>
 </button>
-
 
 <script src="app.js"></script>
 
