@@ -156,7 +156,7 @@ function setFilter(f) {
 
 function loadOrders() {
     db.collection("orders")
-      .orderBy("timestamp", "asc")
+      .orderBy("createdAt", "asc")
       .onSnapshot(snapshot => {
         
         let html = "";
