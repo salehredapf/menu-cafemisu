@@ -24,6 +24,15 @@
         font-weight: 700;
     }
 
+    h2 {
+        font-size: 1.7rem;
+        margin-top: 35px;
+        margin-bottom: 10px;
+        border-bottom: 2px solid #A87555;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
     .item {
         background: white;
         padding: 16px;
@@ -33,7 +42,7 @@
     }
 
     .item-title {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         margin: 0 0 6px;
         font-weight: 600;
     }
@@ -87,7 +96,7 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    input, select {
+    input {
         width: 100%;
         padding: 12px;
         margin: 10px 0 22px;
@@ -112,7 +121,7 @@
 
 <body>
 
-<h1>CaféMisu × We Padel<br>Commander depuis votre table</h1>
+<h1>CaféMisu × We Padel</h1>
 
 <div id="menu"></div>
 
@@ -122,7 +131,7 @@
 </div>
 
 <div id="checkout">
-    <h2>Finaliser la commande</h2>
+    <h2>Finaliser votre commande</h2>
 
     <label>Numéro de table *</label>
     <input type="number" id="table-number" placeholder="Ex: 7" required>
@@ -138,44 +147,114 @@
     // 1. CONFIGURATION FIREBASE
     // ---------------------------------------
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from 
-    "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } 
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
-  apiKey: "AIzaSyDb7QI70lVF5vhQahUau5z2E7QOvdte9Y",
-  authDomain: "cafemisu-wepadel.firebaseapp.com",
-  projectId: "cafemisu-wepadel",
-  storageBucket: "cafemisu-wepadel.appspot.com",
-  messagingSenderId: "184586399626",
-  appId: "1:184586399626:web:382a3671ca9b32baba4273"
-};
-
+      apiKey: "AIzaSyDb7QI70lVF5vhQahUau5z2E7QOvdte9Y",
+      authDomain: "cafemisu-wepadel.firebaseapp.com",
+      projectId: "cafemisu-wepadel",
+      storageBucket: "cafemisu-wepadel.appspot.com",
+      messagingSenderId: "184586399626",
+      appId: "1:184586399626:web:382a3671ca9b32baba4273"
+    };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
     // ---------------------------------------
-    // 2. MENU (À personnaliser)
+    // 2. MENU COMPLET CAFÉMISU
     // ---------------------------------------
     const menuItems = [
-        { name: "Spanish Latte", price: 3500 },
-        { name: "Matcha Latte", price: 4000 },
-        { name: "Mocha Caramel", price: 3800 },
-        { name: "Banana Pudding", price: 4500 },
-        { name: "Tiramisu Classique", price: 4500 }
+
+        // --- Les frappés ---
+        { category: "Les frappés", name: "Latté Frappé", price: 4500 },
+        { category: "Les frappés", name: "Matcha Frappé", price: 5500 },
+        { category: "Les frappés", name: "Caramel Frappé", price: 5500 },
+        { category: "Les frappés", name: "Lait végétal", price: 1000 },
+
+        // --- Les matchas ---
+        { category: "Les matchas", name: "Iced Matcha Latte", price: 5500 },
+        { category: "Les matchas", name: "Coconut Matcha Cloud", price: 5500 },
+        { category: "Les matchas", name: "Strawberry Matcha", price: 6500 },
+        { category: "Les matchas", name: "Mango Matcha", price: 6500 },
+        { category: "Les matchas", name: "Lait végétal", price: 1000 },
+
+        // --- Les lattés ---
+        { category: "Les lattés", name: "Iced Americano", price: 4000 },
+        { category: "Les lattés", name: "Spanish Iced Latte", price: 5500 },
+        { category: "Les lattés", name: "Iced Coffee Latte", price: 4500 },
+        { category: "Les lattés", name: "Lait végétal", price: 1000 },
+
+        // --- Boissons chaudes ---
+        { category: "Boissons chaudes", name: "Café au lait", price: 3500 },
+        { category: "Boissons chaudes", name: "Thé", price: 1500 },
+        { category: "Boissons chaudes", name: "Chocolat chaud", price: 3500 },
+        { category: "Boissons chaudes", name: "Espresso", price: 1000 },
+        { category: "Boissons chaudes", name: "Americano", price: 2000 },
+        { category: "Boissons chaudes", name: "Cappuccino", price: 3500 },
+        { category: "Boissons chaudes", name: "Lait végétal", price: 1000 },
+
+        // --- Les spéciaux ---
+        { category: "Les spéciaux", name: "Caramel Machiatto", price: 5000 },
+        { category: "Les spéciaux", name: "Iced Chocolate", price: 5000 },
+        { category: "Les spéciaux", name: "UBE Latte", price: 7000 },
+        { category: "Les spéciaux", name: "Lait végétal", price: 1000 },
+
+        // --- Boissons gazeuses ---
+        { category: "Boissons gazeuses", name: "Coca", price: 1000 },
+        { category: "Boissons gazeuses", name: "Sprite", price: 1000 },
+        { category: "Boissons gazeuses", name: "Fanta", price: 1000 },
+        { category: "Boissons gazeuses", name: "Ice Tea", price: 1000 },
+        { category: "Boissons gazeuses", name: "Cody’s", price: 1000 },
+        { category: "Boissons gazeuses", name: "Redbull", price: 2000 },
+        { category: "Boissons gazeuses", name: "Perrier", price: 2000 },
+        { category: "Boissons gazeuses", name: "Eau", price: 1000 },
+
+        // --- Spéciaux du weekend ---
+        { category: "Spéciaux du weekend", name: "Tiramisu Cake Latte", price: 7000 },
+        { category: "Spéciaux du weekend", name: "Tiramisu Cake Matcha Latte", price: 7500 },
+        { category: "Spéciaux du weekend", name: "Matcha Banana Pudding", price: 7500 },
+        { category: "Spéciaux du weekend", name: "LE LATTE XXXL", price: 25000 },
+        { category: "Spéciaux du weekend", name: "LE MATCHA XXXL", price: 30000 },
+        { category: "Spéciaux du weekend", name: "Lait végétal", price: 1000 },
+
+        // --- Tiramisu ---
+        { category: "Tiramisu", name: "Tiramisu Café", price: 4000 },
+        { category: "Tiramisu", name: "Tiramisu Matcha", price: 5000 },
+        { category: "Tiramisu", name: "Tiramisu Nutella", price: 5000 },
+        { category: "Tiramisu", name: "Tiramisu Fraise", price: 5500 },
+        { category: "Tiramisu", name: "Tiramisu Spéculos", price: 5500 },
+        { category: "Tiramisu", name: "Tiramisu Ferrero", price: 5500 },
+        { category: "Tiramisu", name: "Tiramisu Bueno", price: 5500 },
+        { category: "Tiramisu", name: "Tiramisu Pistache", price: 5500 },
+        { category: "Tiramisu", name: "Tiramisu Oreo", price: 5000 }
     ];
 
     const menuDiv = document.getElementById("menu");
     let cart = [];
 
+    // ---------------------------------------
+    // 3. Affichage dynamique du menu
+    // ---------------------------------------
     function renderMenu() {
+        let currentCategory = "";
         menuItems.forEach((item, index) => {
+
+            if (item.category !== currentCategory) {
+                currentCategory = item.category;
+                menuDiv.innerHTML += `
+                    <h2>${currentCategory}</h2>
+                `;
+            }
+
             menuDiv.innerHTML += `
                 <div class="item">
                     <div class="item-title">${item.name}</div>
-                    <div class="item-price">${item.price} FCFA</div>
+                    <div class="item-price">${item.price.toLocaleString()} FCFA</div>
                     <button class="add" onclick="addToCart(${index})">Ajouter</button>
-                </div>`;
+                </div>
+            `;
         });
     }
     renderMenu();
@@ -191,7 +270,7 @@
     };
 
     // ---------------------------------------
-    // 3. ENVOI DE LA COMMANDE
+    // 4. ENVOI DE LA COMMANDE
     // ---------------------------------------
     window.sendOrder = async function() {
         const table = document.getElementById("table-number").value;
@@ -210,7 +289,7 @@
         });
 
         alert("Votre commande a été envoyée !");
-        window.location.href = "/"; // retour accueil
+        window.location.href = "/"; 
     };
 </script>
 
