@@ -2,432 +2,235 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard – CaféMisu × We Padel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 
 <style>
     body {
+        font-family: 'Playfair Display', serif;
+        background: #F7EFEA;
         margin: 0;
         padding: 20px;
-        background: #F9F5F1;
-        font-family: 'Playfair Display', serif;
-        color: #7a5b47;
+        color: #5D3A2C;
     }
 
     h1 {
         text-align: center;
-        margin-bottom: 15px;
-        font-size: 2rem;
-        font-weight: 700;
+        font-size: 2.2rem;
+        margin-bottom: 25px;
     }
 
-    /* ----------- FILTER BAR ----------- */
-
-    .filters {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin-bottom: 20px;
-        justify-content: center;
-    }
-
-    .filter-btn {
-        padding: 8px 14px;
-        border-radius: 6px;
-        border: 1px solid #A87555;
-        background: #fff;
-        cursor: pointer;
-        font-size: 0.95rem;
-    }
-
-    .filter-active {
-        background: #A87555;
-        color: #fff;
-        border-color: #A87555;
-    }
-
-    /* ----------- DATE FILTER ----------- */
-
-    .date-bar {
+    .filter-bar {
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
         justify-content: center;
-        margin-bottom: 15px;
-        align-items: center;
+        margin-bottom: 25px;
     }
 
-    .date-bar input {
-        padding: 7px;
-        border-radius: 6px;
-        border: 1px solid #A87555;
-        font-size: 0.9rem;
-    }
-
-    .date-bar button {
-        padding: 7px 14px;
-        background: #A87555;
+    .filter-btn {
+        padding: 10px 15px;
+        border-radius: 8px;
         border: none;
-        color: white;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.95rem;
-    }
-
-    /* ----------- EXPORT ----------- */
-
-    .export-bar {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .export-btn {
-        padding: 7px 14px;
-        margin: 0 6px;
-        background: #7C3AED;
-        border: none;
-        color: white;
-        border-radius: 6px;
+        background: #D4D4D8;
+        color: #333;
+        font-weight: 600;
         cursor: pointer;
     }
 
-    /* ----------- CARDS ----------- */
-
-    .section-title {
-        font-size: 1.4rem;
-        margin-top: 25px;
-        margin-bottom: 10px;
-        font-weight: 700;
-        text-align: center;
-        color: #A87555;
+    .filter-btn.active {
+        color: white;
     }
 
-    .card {
-        background: #fff;
+    /* Couleurs filtres */
+    .active.new     { background: #DC2626 !important; } /* rouge */
+    .active.served  { background: #16A34A !important; } /* vert */
+    .active.paid    { background: #16A34A !important; } /* vert */
+    .active.done    { background: #7C3AED !important; } /* violet */
+    .active.all     { background: #444 !important; }    
+
+    .order-card {
+        background: white;
         padding: 20px;
-        border-radius: 16px;
-        margin: 20px 0;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        border-radius: 14px;
+        margin-bottom: 18px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    .card-header {
+    .order-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap;
+        margin-bottom: 14px;
     }
 
-    .table-number {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #A87555;
-    }
-
-    .buttons {
+    .status-row {
         display: flex;
         gap: 8px;
-        flex-wrap: wrap;
+        margin-bottom: 10px;
     }
 
     .status-btn {
         padding: 8px 14px;
+        background: #D4D4D8;
         border-radius: 6px;
-        border: none;
         cursor: pointer;
-        font-size: 0.9rem;
+        font-weight: 600;
+        border: none;
+    }
+
+    /* Couleurs statuts quand actifs */
+    .status-btn.active-new {
+        background: #DC2626;
         color: white;
-
-        /* Default = grey */
-        background: #6B7280;
     }
-
-    /* COLORS BY STATUS */
-    .status-new.active { background: #DC2626 !important; }     /* RED */
-    .status-served.active { background: #22C55E !important; }  /* GREEN */
-    .status-paid.active { background: #22C55E !important; }    /* GREEN */
-    .status-done.active { background: #7C3AED !important; }    /* PURPLE */
-
-    ul {
-        padding-left: 20px;
-        margin: 10px 0;
+    .status-btn.active-served,
+    .status-btn.active-paid {
+        background: #16A34A;
+        color: white;
     }
-
-    .client, .date {
-        margin-top: 5px;
-        font-size: 0.95rem;
-    }
-
-    /* TERMINER BUTTON */
-    .terminate-btn {
-        margin-top: 14px;
-        padding: 7px 12px;
+    .status-btn.active-done {
         background: #7C3AED;
-        border: none;
         color: white;
-        border-radius: 6px;
-        cursor: pointer;
-        float: right;
     }
 
+    .order-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+    }
+
+    .btn-end {
+        background-color: #7C3AED;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .btn-end:hover {
+        background-color: #6D28D9;
+    }
 </style>
 </head>
+
 <body>
 
-<h1>📋 Dashboard – CaféMisu × We Padel</h1>
+<h1>📋 Commandes – CaféMisu × We Padel</h1>
 
-<!-- DATE FILTER -->
-<div class="date-bar">
-    <span>📅 Du :</span>
-    <input type="date" id="from-date">
-    <span>Au :</span>
-    <input type="date" id="to-date">
-    <button id="apply-date">Appliquer</button>
-    <button id="today-btn">Aujourd’hui</button>
+<!-- BARRE DE FILTRES -->
+<div class="filter-bar">
+    <button class="filter-btn active all" onclick="setFilter('all')">Toutes</button>
+    <button class="filter-btn new" onclick="setFilter('new')">Nouvelle commande</button>
+    <button class="filter-btn served" onclick="setFilter('served')">Servies</button>
+    <button class="filter-btn paid" onclick="setFilter('paid')">Payées</button>
+    <button class="filter-btn done" onclick="setFilter('done')">Terminées</button>
 </div>
 
-<!-- STATUS FILTER -->
-<div class="filters">
-    <button class="filter-btn" data-filter="all">Toutes</button>
-    <button class="filter-btn" data-filter="new">Nouvelle commande</button>
-    <button class="filter-btn" data-filter="served">Servies</button>
-    <button class="filter-btn" data-filter="paid">Payées</button>
-    <button class="filter-btn" data-filter="done">Terminées</button>
-</div>
+<div id="orders"></div>
 
-<!-- EXPORT -->
-<div class="export-bar">
-    <button class="export-btn" id="export-pdf">📄 Export PDF</button>
-    <button class="export-btn" id="export-csv">📊 Export CSV</button>
-</div>
+<!-- FIREBASE + LOGIQUE -->
+<script>
+/* ---------------------- CONFIG FIREBASE ---------------------- */
+const firebaseConfig = {
+    apiKey: "AIzaSyDb7QDl0VF5vhQahUaua5z2EzYQovdt9Y",
+    authDomain: "cafemisu-wepadel.firebaseapp.com",
+    projectId: "cafemisu-wepadel",
+    storageBucket: "cafemisu-wepadel.firebasestorage.app",
+    messagingSenderId: "158465399626",
+    appId: "1:158465399626:web:382a8671ca9b32b3aba4273"
+};
 
-<!-- SECTIONS -->
-<div class="section-title">Commandes actives</div>
-<div id="active-orders"></div>
+const app = firebase.initializeApp(firebaseConfig);
+const db  = firebase.firestore();
 
-<div class="section-title">Commandes terminées</div>
-<div id="done-orders"></div>
+/* ---------------------- AFFICHAGE ---------------------- */
+let currentFilter = "all";
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, query, orderBy, onSnapshot, updateDoc, doc }
-        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import jsPDF from "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/+esm";
+function setFilter(f) {
+    currentFilter = f;
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyDb7QI70lVF5vhQahUau5z2E7QOvdte9Y",
-        authDomain: "cafemisu-wepadel.firebaseapp.com",
-        projectId: "cafemisu-wepadel",
-        storageBucket: "cafemisu-wepadel.appspot.com",
-        messagingSenderId: "184586399626",
-        appId: "1:184586399626:web:382a3671ca9b32baba4273"
-    };
+    document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+    document.querySelector(`.filter-btn.${f}`)?.classList.add("active");
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    loadOrders();
+}
 
-    let selectedFilter = "all";
-    let dateFrom = null;
-    let dateTo = null;
+function loadOrders() {
+    db.collection("orders")
+      .orderBy("timestamp", "asc")
+      .onSnapshot(snapshot => {
 
-    const activeDiv = document.getElementById("active-orders");
-    const doneDiv  = document.getElementById("done-orders");
+        let html = "";
+        snapshot.forEach(doc => {
+            const d = doc.data();
+            d.id = doc.id;
 
-    const q = query(collection(db, "orders"), orderBy("createdAt", "asc"));
+            if (currentFilter !== "all" && d.status !== currentFilter)
+                return;
 
-    onSnapshot(q, (snapshot) => {
-        const orders = [];
-        snapshot.forEach(docSnap => {
-            const data = docSnap.data();
-            orders.push({ id: docSnap.id, ...data });
+            html += generateOrderCard(d);
         });
 
-        renderOrders(orders);
-    });
+        document.getElementById("orders").innerHTML = html;
+      });
+}
 
-    function matchesFilter(order) {
-        if (selectedFilter === "all") return order.status !== "done";
-        return order.status === selectedFilter;
-    }
+function generateOrderCard(d) {
+    return `
+    <div class="order-card">
 
-    function matchesDate(order) {
-        if (!order.createdAt) return false;
-        const t = order.createdAt.toDate();
+        <h2>Table ${d.table}</h2>
 
-        if (dateFrom && t < dateFrom) return false;
-        if (dateTo && t > dateTo) return false;
+        <!-- STATUTS -->
+        <div class="status-row">
+            <button class="status-btn ${d.status==='new'     ? 'active-new'   : ''}"
+                onclick="updateStatus('${d.id}','new')">Nouvelle commande</button>
 
-        return true;
-    }
+            <button class="status-btn ${d.status==='served'  ? 'active-served': ''}"
+                onclick="updateStatus('${d.id}','served')">Servi</button>
 
-    function renderOrders(list) {
-        activeDiv.innerHTML = "";
-        doneDiv.innerHTML = "";
+            <button class="status-btn ${d.status==='paid'    ? 'active-paid'  : ''}"
+                onclick="updateStatus('${d.id}','paid')">Payé</button>
 
-        list.forEach(order => {
-            if (!matchesDate(order) || !matchesFilter(order)) return;
+            <button class="status-btn ${d.status==='done'    ? 'active-done'  : ''}"
+                onclick="updateStatus('${d.id}','done')">Terminé</button>
+        </div>
 
-            const card = document.createElement("div");
-            card.className = "card";
+        <ul>
+           ${d.items.map(i => `<li>${i.name} — ${i.price.toLocaleString()} FCFA</li>`).join("")}
+        </ul>
 
-            const created = order.createdAt?.toDate().toLocaleString("fr-FR") || "—";
-            const items = order.items.map(i => `<li>${i.name} — ${i.price.toLocaleString()} FCFA</li>`).join("");
+        <p><i>Client :</i> ${d.customer || "—"}</p>
+        <p><i>Reçu :</i> ${d.time}</p>
 
-            card.innerHTML = `
-                <div class="card-header">
-                    <div class="table-number">Table ${order.table}</div>
+        <div class="order-footer">
+            <button class="btn-end" onclick="finishOrder('${d.id}')">Terminer</button>
+        </div>
 
-                    <div class="buttons">
-                        <button class="status-btn status-new ${order.status === 'new' ? 'active' : ''}"
-                                data-id="${order.id}" data-status="new">Nouvelle commande</button>
+    </div>
+    `;
+}
 
-                        <button class="status-btn status-served ${order.status === 'served' ? 'active' : ''}"
-                                data-id="${order.id}" data-status="served">Servi</button>
+/* ---------------------- ACTIONS ---------------------- */
+function updateStatus(id, status) {
+    db.collection("orders").doc(id).update({ status });
+}
 
-                        <button class="status-btn status-paid ${order.status === 'paid' ? 'active' : ''}"
-                                data-id="${order.id}" data-status="paid">Payé</button>
+function finishOrder(id) {
+    db.collection("orders").doc(id).update({ status: "done" });
+}
 
-                        <button class="status-btn status-done ${order.status === 'done' ? 'active' : ''}"
-                                data-id="${order.id}" data-status="done">Terminé</button>
-                    </div>
-                </div>
-
-                <ul>${items}</ul>
-
-                <div class="client">Client : ${order.name || "—"}</div>
-                <div class="date">Reçu : ${created}</div>
-
-                <button class="terminate-btn" data-id="${order.id}">Terminer</button>
-            `;
-
-            if (order.status === "done") {
-                doneDiv.appendChild(card);
-            } else {
-                activeDiv.appendChild(card);
-            }
-
-            card.querySelectorAll(".status-btn").forEach(btn => {
-                btn.addEventListener("click", async () => {
-                    const id = btn.dataset.id;
-                    const newStatus = btn.dataset.status;
-
-                    await updateDoc(doc(db, "orders", id), { status: newStatus });
-                });
-            });
-
-            card.querySelector(".terminate-btn").addEventListener("click", async () => {
-                await updateDoc(doc(db, "orders", order.id), { status: "done" });
-            });
-        });
-    }
-
-    document.querySelectorAll(".filter-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("filter-active"));
-            btn.classList.add("filter-active");
-
-            selectedFilter = btn.dataset.filter;
-            onSnapshot(q, snapshot => {
-                const orders=[];
-                snapshot.forEach(docSnap => orders.push({id:docSnap.id,...docSnap.data()}));
-                renderOrders(orders);
-            });
-        });
-    });
-
-    document.getElementById("apply-date").addEventListener("click", () => {
-        dateFrom = document.getElementById("from-date").value ? new Date(document.getElementById("from-date").value+" 00:00:00") : null;
-        dateTo = document.getElementById("to-date").value ? new Date(document.getElementById("to-date").value+" 23:59:59") : null;
-
-        onSnapshot(q, snapshot => {
-            const orders=[];
-            snapshot.forEach(docSnap => orders.push({id:docSnap.id,...docSnap.data()}));
-            renderOrders(orders);
-        });
-    });
-
-    document.getElementById("today-btn").addEventListener("click", () => {
-        const now = new Date();
-        const iso = now.toISOString().split("T")[0];
-
-        document.getElementById("from-date").value = iso;
-        document.getElementById("to-date").value   = iso;
-
-        dateFrom = new Date(iso+" 00:00:00");
-        dateTo   = new Date(iso+" 23:59:59");
-
-        onSnapshot(q, snapshot => {
-            const orders=[];
-            snapshot.forEach(docSnap => orders.push({id:docSnap.id,...docSnap.data()}));
-            renderOrders(orders);
-        });
-    });
-
-    /* EXPORT CSV */
-    document.getElementById("export-csv").addEventListener("click", () => {
-        let csv = "Table,Nom,Statut,Date,Articles\n";
-
-        const rows = [...activeDiv.children, ...doneDiv.children];
-
-        rows.forEach(card => {
-            const table = card.querySelector(".table-number").innerText.replace("Table ","");
-            const name = card.querySelector(".client").innerText.replace("Client : ","");
-            const date = card.querySelector(".date").innerText.replace("Reçu : ","");
-
-            const items = [...card.querySelectorAll("ul li")].map(li => li.innerText).join(" | ");
-
-            const status = [...card.querySelectorAll(".status-btn.active")][0]?.dataset.status || "—";
-
-            csv += `${table},${name},${status},${date},"${items}"\n`;
-        });
-
-        const blob = new Blob([csv], {type: "text/csv"});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "commandes.csv";
-        a.click();
-    });
-
-    /* EXPORT PDF */
-    document.getElementById("export-pdf").addEventListener("click", () => {
-        const pdf = new jsPDF();
-        let y = 10;
-
-        pdf.setFontSize(16);
-        pdf.text("Rapport des commandes CaféMisu × We Padel", 10, y);
-        y += 10;
-        pdf.setFontSize(12);
-
-        const rows = [...activeDiv.children, ...doneDiv.children];
-
-        rows.forEach(card => {
-            if (y > 270) { pdf.addPage(); y = 10; }
-
-            const table = card.querySelector(".table-number").innerText;
-            const name  = card.querySelector(".client").innerText;
-            const date  = card.querySelector(".date").innerText;
-            const items = [...card.querySelectorAll("ul li")].map(li => li.innerText);
-
-            pdf.text(table, 10, y);
-            y += 6;
-            pdf.text(name, 10, y);
-            y += 6;
-            pdf.text(date, 10, y);
-            y += 6;
-
-            items.forEach(i => {
-                pdf.text(" - " + i, 14, y);
-                y += 6;
-            });
-
-            y += 6;
-        });
-
-        pdf.save("commandes.pdf");
-    });
-
+/* ---------------------- INIT ---------------------- */
+loadOrders();
 </script>
 
 </body>
