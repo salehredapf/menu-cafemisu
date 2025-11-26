@@ -110,6 +110,10 @@
     <button class="filter-btn" onclick="setFilter('done')">Commandes terminées</button>
     <button class="filter-btn" onclick="setFilter('all')">Toutes</button>
 </div>
+    
+<div class="filter-bar">
+    <button class="filter-btn" onclick="toggleSort()">📅 Trier par date</button>
+</div>
 
 <!-- EXPORT -->
 <div id="export-bar">
@@ -145,9 +149,9 @@ function setFilter(f) {
 
 /* CHARGEMENT COMMANDES */
 function loadOrders() {
-    db.collection("orders")
-      .orderBy("timestamp", "desc")
-      .onSnapshot(snap => {
+db.collection("orders")
+  .orderBy("timestamp", sortDirection)
+  .onSnapshot(snap => {
         let html = "";
         const all = [];
 
@@ -223,6 +227,14 @@ function exportPDF() {
     });
 
     pdf.save("commandes.pdf");
+}
+
+    /* ------ TRI PAR DATE ------- */
+let sortDirection = "desc"; // par défaut
+
+function toggleSort() {
+    sortDirection = sortDirection === "desc" ? "asc" : "desc";
+    loadOrders();
 }
 
 /* INIT */
