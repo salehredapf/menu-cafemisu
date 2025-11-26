@@ -56,7 +56,7 @@
         flex-wrap: wrap;
     }
 
-    /* Boutons statut */
+    /* Boutons statut — tous GRIS */
     .status-btn {
         padding: 8px 16px;
         border-radius: 10px;
@@ -65,11 +65,13 @@
         border: none;
         font-weight: 600;
         color: white;
+        background: #6B7280; /* gris */
     }
 
-    .status-preparing { background: #6B7280; }
-    .status-served { background: #7CCC54; }
-    .status-paid { background: #444; }
+    /* Bouton actif = VERT */
+    .active-status {
+        background: #7CCC54 !important;
+    }
 
     /* Badge paid */
     .badge {
@@ -155,9 +157,9 @@
                     <div class="table-number">Table ${data.table}</div>
 
                     <div class="badges">
-                        <button class="status-btn status-preparing" data-id="${docSnap.id}" data-status="preparing">Préparer</button>
-                        <button class="status-btn status-served" data-id="${docSnap.id}" data-status="served">Servi</button>
-                        <button class="status-btn status-paid" data-id="${docSnap.id}" data-status="paid">Payé</button>
+                        <button class="status-btn" data-id="${docSnap.id}" data-status="preparing">Préparer</button>
+                        <button class="status-btn" data-id="${docSnap.id}" data-status="served">Servi</button>
+                        <button class="status-btn" data-id="${docSnap.id}" data-status="paid">Payé</button>
 
                         ${paidBadge}
                     </div>
@@ -174,15 +176,30 @@
             `;
 
             ordersDiv.appendChild(card);
-        });
 
-        // GESTION DES BOUTONS DE STATUT
-        document.querySelectorAll(".status-btn").forEach(btn => {
-            btn.addEventListener("click", async () => {
-                const id = btn.getAttribute("data-id");
-                const newStatus = btn.getAttribute("data-status");
+            /* ----- Activation visuelle du bouton ----- */
+            const buttons = card.querySelectorAll(".status-btn");
+            buttons.forEach(btn => {
+                if (btn.dataset.status === data.status) {
+                    btn.classList.add("active-status");
+                }
+            });
 
-                await updateDoc(doc(db, "orders", id), { status: newStatus });
+            /* ----- Gestion clic des statuts ----- */
+            buttons.forEach(btn => {
+                btn.addEventListener("click", async () => {
+                    const id = btn.getAttribute("data-id");
+                    const newStatus = btn.getAttribute("data-status");
+
+                    // Mise à jour Firestore
+                    await updateDoc(doc(db, "orders", id), { status: newStatus });
+
+                    // Reset des boutons
+                    buttons.forEach(b => b.classList.remove("active-status"));
+
+                    // Activation bouton cliqué
+                    btn.classList.add("active-status");
+                });
             });
         });
     });
