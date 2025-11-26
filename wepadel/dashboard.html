@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Commandes – CaféMisu × We Padel</title>
+<title>Dashboard – CaféMisu × We Padel</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -18,108 +18,202 @@
 
     h1 {
         text-align: center;
-        margin-bottom: 25px;
-        font-size: 2.4rem;
+        margin-bottom: 15px;
+        font-size: 2rem;
         font-weight: 700;
     }
 
-    /* ===== CARD ===== */
+    /* ----------- FILTER BAR ----------- */
+
+    .filters {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+
+    .filter-btn {
+        padding: 8px 14px;
+        border-radius: 6px;
+        border: 1px solid #A87555;
+        background: #fff;
+        cursor: pointer;
+        font-size: 0.95rem;
+    }
+
+    .filter-active {
+        background: #A87555;
+        color: #fff;
+        border-color: #A87555;
+    }
+
+    /* ----------- DATE FILTER ----------- */
+
+    .date-bar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 15px;
+        align-items: center;
+    }
+
+    .date-bar input {
+        padding: 7px;
+        border-radius: 6px;
+        border: 1px solid #A87555;
+        font-size: 0.9rem;
+    }
+
+    .date-bar button {
+        padding: 7px 14px;
+        background: #A87555;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.95rem;
+    }
+
+    /* ----------- EXPORT ----------- */
+
+    .export-bar {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .export-btn {
+        padding: 7px 14px;
+        margin: 0 6px;
+        background: #7C3AED;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    /* ----------- CARDS ----------- */
+
+    .section-title {
+        font-size: 1.4rem;
+        margin-top: 25px;
+        margin-bottom: 10px;
+        font-weight: 700;
+        text-align: center;
+        color: #A87555;
+    }
 
     .card {
         background: #fff;
         padding: 20px;
-        border-radius: 18px;
-        margin: 25px 0;
+        border-radius: 16px;
+        margin: 20px 0;
         box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     }
 
-    /* Ligne supérieure : Table + boutons */
     .card-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 12px;
         flex-wrap: wrap;
-        gap: 10px;
     }
 
     .table-number {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
         font-weight: 700;
         color: #A87555;
     }
 
-    /* Conteneur boutons + badge */
-    .badges {
+    .buttons {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         flex-wrap: wrap;
     }
 
-    /* Boutons statut — tous GRIS */
     .status-btn {
-        padding: 8px 16px;
-        border-radius: 10px;
-        font-size: 1rem;
-        cursor: pointer;
+        padding: 8px 14px;
+        border-radius: 6px;
         border: none;
-        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.9rem;
         color: white;
-        background: #6B7280; /* gris */
+
+        /* Default = grey */
+        background: #6B7280;
     }
 
-    /* Bouton actif = VERT */
-    .active-status {
-        background: #7CCC54 !important;
+    /* COLORS BY STATUS */
+    .status-new.active { background: #DC2626 !important; }     /* RED */
+    .status-served.active { background: #22C55E !important; }  /* GREEN */
+    .status-paid.active { background: #22C55E !important; }    /* GREEN */
+    .status-done.active { background: #7C3AED !important; }    /* PURPLE */
+
+    ul {
+        padding-left: 20px;
+        margin: 10px 0;
     }
 
-    /* Badge paid */
-    .badge {
-        padding: 7px 15px;
-        border-radius: 10px;
-        font-size: 1rem;
-        font-weight: 600;
-        color: white;
-        background: #444;
-    }
-
-    /* Liste des items */
-    .order-items {
-        margin-top: 10px;
-        padding-left: 25px;
-    }
-
-    .order-items li {
-        margin: 6px 0;
-        font-size: 1.15rem;
-    }
-
-    /* Infos client */
-    .client {
-        margin-top: 10px;
-        font-style: italic;
-        font-size: 1.1rem;
-        color: #7a5b47;
-    }
-
-    .date {
+    .client, .date {
+        margin-top: 5px;
         font-size: 0.95rem;
-        margin-top: 6px;
-        opacity: 0.7;
     }
+
+    /* TERMINER BUTTON */
+    .terminate-btn {
+        margin-top: 14px;
+        padding: 7px 12px;
+        background: #7C3AED;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        float: right;
+    }
+
 </style>
 </head>
-
 <body>
 
-<h1>📋 Commandes – CaféMisu × We Padel</h1>
+<h1>📋 Dashboard – CaféMisu × We Padel</h1>
 
-<div id="orders"></div>
+<!-- DATE FILTER -->
+<div class="date-bar">
+    <span>📅 Du :</span>
+    <input type="date" id="from-date">
+    <span>Au :</span>
+    <input type="date" id="to-date">
+    <button id="apply-date">Appliquer</button>
+    <button id="today-btn">Aujourd’hui</button>
+</div>
+
+<!-- STATUS FILTER -->
+<div class="filters">
+    <button class="filter-btn" data-filter="all">Toutes</button>
+    <button class="filter-btn" data-filter="new">Nouvelle commande</button>
+    <button class="filter-btn" data-filter="served">Servies</button>
+    <button class="filter-btn" data-filter="paid">Payées</button>
+    <button class="filter-btn" data-filter="done">Terminées</button>
+</div>
+
+<!-- EXPORT -->
+<div class="export-bar">
+    <button class="export-btn" id="export-pdf">📄 Export PDF</button>
+    <button class="export-btn" id="export-csv">📊 Export CSV</button>
+</div>
+
+<!-- SECTIONS -->
+<div class="section-title">Commandes actives</div>
+<div id="active-orders"></div>
+
+<div class="section-title">Commandes terminées</div>
+<div id="done-orders"></div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, query, orderBy, onSnapshot, updateDoc, doc }
         from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import jsPDF from "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/+esm";
 
     const firebaseConfig = {
         apiKey: "AIzaSyDb7QI70lVF5vhQahUau5z2E7QOvdte9Y",
@@ -133,76 +227,207 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const ordersDiv = document.getElementById("orders");
+    let selectedFilter = "all";
+    let dateFrom = null;
+    let dateTo = null;
 
-    // Récupération temps réel
-    const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+    const activeDiv = document.getElementById("active-orders");
+    const doneDiv  = document.getElementById("done-orders");
+
+    const q = query(collection(db, "orders"), orderBy("createdAt", "asc"));
 
     onSnapshot(q, (snapshot) => {
-        ordersDiv.innerHTML = "";
-
-        snapshot.forEach((docSnap) => {
+        const orders = [];
+        snapshot.forEach(docSnap => {
             const data = docSnap.data();
+            orders.push({ id: docSnap.id, ...data });
+        });
+
+        renderOrders(orders);
+    });
+
+    function matchesFilter(order) {
+        if (selectedFilter === "all") return order.status !== "done";
+        return order.status === selectedFilter;
+    }
+
+    function matchesDate(order) {
+        if (!order.createdAt) return false;
+        const t = order.createdAt.toDate();
+
+        if (dateFrom && t < dateFrom) return false;
+        if (dateTo && t > dateTo) return false;
+
+        return true;
+    }
+
+    function renderOrders(list) {
+        activeDiv.innerHTML = "";
+        doneDiv.innerHTML = "";
+
+        list.forEach(order => {
+            if (!matchesDate(order) || !matchesFilter(order)) return;
 
             const card = document.createElement("div");
             card.className = "card";
 
-            const paidBadge = data.status === "paid"
-                ? '<span class="badge">payé</span>'
-                : '';
+            const created = order.createdAt?.toDate().toLocaleString("fr-FR") || "—";
+            const items = order.items.map(i => `<li>${i.name} — ${i.price.toLocaleString()} FCFA</li>`).join("");
 
-            // STRUCTURE DE LA CARTE
             card.innerHTML = `
                 <div class="card-header">
-                    <div class="table-number">Table ${data.table}</div>
+                    <div class="table-number">Table ${order.table}</div>
 
-                    <div class="badges">
-                        <button class="status-btn" data-id="${docSnap.id}" data-status="preparing">Préparer</button>
-                        <button class="status-btn" data-id="${docSnap.id}" data-status="served">Servi</button>
-                        <button class="status-btn" data-id="${docSnap.id}" data-status="paid">Payé</button>
+                    <div class="buttons">
+                        <button class="status-btn status-new ${order.status === 'new' ? 'active' : ''}"
+                                data-id="${order.id}" data-status="new">Nouvelle commande</button>
 
-                        ${paidBadge}
+                        <button class="status-btn status-served ${order.status === 'served' ? 'active' : ''}"
+                                data-id="${order.id}" data-status="served">Servi</button>
+
+                        <button class="status-btn status-paid ${order.status === 'paid' ? 'active' : ''}"
+                                data-id="${order.id}" data-status="paid">Payé</button>
+
+                        <button class="status-btn status-done ${order.status === 'done' ? 'active' : ''}"
+                                data-id="${order.id}" data-status="done">Terminé</button>
                     </div>
                 </div>
 
-                <ul class="order-items">
-                    ${data.items
-                        .map(i => `<li>${i.name} — ${i.price.toLocaleString()} FCFA</li>`)
-                        .join("")}
-                </ul>
+                <ul>${items}</ul>
 
-                <div class="client">Client : ${data.name || "—"}</div>
-                <div class="date">Reçu : ${data.createdAt?.toDate().toLocaleString("fr-FR")}</div>
+                <div class="client">Client : ${order.name || "—"}</div>
+                <div class="date">Reçu : ${created}</div>
+
+                <button class="terminate-btn" data-id="${order.id}">Terminer</button>
             `;
 
-            ordersDiv.appendChild(card);
+            if (order.status === "done") {
+                doneDiv.appendChild(card);
+            } else {
+                activeDiv.appendChild(card);
+            }
 
-            /* ----- Activation visuelle du bouton ----- */
-            const buttons = card.querySelectorAll(".status-btn");
-            buttons.forEach(btn => {
-                if (btn.dataset.status === data.status) {
-                    btn.classList.add("active-status");
-                }
+            card.querySelectorAll(".status-btn").forEach(btn => {
+                btn.addEventListener("click", async () => {
+                    const id = btn.dataset.id;
+                    const newStatus = btn.dataset.status;
+
+                    await updateDoc(doc(db, "orders", id), { status: newStatus });
+                });
             });
 
-            /* ----- Gestion clic des statuts ----- */
-            buttons.forEach(btn => {
-                btn.addEventListener("click", async () => {
-                    const id = btn.getAttribute("data-id");
-                    const newStatus = btn.getAttribute("data-status");
+            card.querySelector(".terminate-btn").addEventListener("click", async () => {
+                await updateDoc(doc(db, "orders", order.id), { status: "done" });
+            });
+        });
+    }
 
-                    // Mise à jour Firestore
-                    await updateDoc(doc(db, "orders", id), { status: newStatus });
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("filter-active"));
+            btn.classList.add("filter-active");
 
-                    // Reset des boutons
-                    buttons.forEach(b => b.classList.remove("active-status"));
-
-                    // Activation bouton cliqué
-                    btn.classList.add("active-status");
-                });
+            selectedFilter = btn.dataset.filter;
+            onSnapshot(q, snapshot => {
+                const orders=[];
+                snapshot.forEach(docSnap => orders.push({id:docSnap.id,...docSnap.data()}));
+                renderOrders(orders);
             });
         });
     });
+
+    document.getElementById("apply-date").addEventListener("click", () => {
+        dateFrom = document.getElementById("from-date").value ? new Date(document.getElementById("from-date").value+" 00:00:00") : null;
+        dateTo = document.getElementById("to-date").value ? new Date(document.getElementById("to-date").value+" 23:59:59") : null;
+
+        onSnapshot(q, snapshot => {
+            const orders=[];
+            snapshot.forEach(docSnap => orders.push({id:docSnap.id,...docSnap.data()}));
+            renderOrders(orders);
+        });
+    });
+
+    document.getElementById("today-btn").addEventListener("click", () => {
+        const now = new Date();
+        const iso = now.toISOString().split("T")[0];
+
+        document.getElementById("from-date").value = iso;
+        document.getElementById("to-date").value   = iso;
+
+        dateFrom = new Date(iso+" 00:00:00");
+        dateTo   = new Date(iso+" 23:59:59");
+
+        onSnapshot(q, snapshot => {
+            const orders=[];
+            snapshot.forEach(docSnap => orders.push({id:docSnap.id,...docSnap.data()}));
+            renderOrders(orders);
+        });
+    });
+
+    /* EXPORT CSV */
+    document.getElementById("export-csv").addEventListener("click", () => {
+        let csv = "Table,Nom,Statut,Date,Articles\n";
+
+        const rows = [...activeDiv.children, ...doneDiv.children];
+
+        rows.forEach(card => {
+            const table = card.querySelector(".table-number").innerText.replace("Table ","");
+            const name = card.querySelector(".client").innerText.replace("Client : ","");
+            const date = card.querySelector(".date").innerText.replace("Reçu : ","");
+
+            const items = [...card.querySelectorAll("ul li")].map(li => li.innerText).join(" | ");
+
+            const status = [...card.querySelectorAll(".status-btn.active")][0]?.dataset.status || "—";
+
+            csv += `${table},${name},${status},${date},"${items}"\n`;
+        });
+
+        const blob = new Blob([csv], {type: "text/csv"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "commandes.csv";
+        a.click();
+    });
+
+    /* EXPORT PDF */
+    document.getElementById("export-pdf").addEventListener("click", () => {
+        const pdf = new jsPDF();
+        let y = 10;
+
+        pdf.setFontSize(16);
+        pdf.text("Rapport des commandes CaféMisu × We Padel", 10, y);
+        y += 10;
+        pdf.setFontSize(12);
+
+        const rows = [...activeDiv.children, ...doneDiv.children];
+
+        rows.forEach(card => {
+            if (y > 270) { pdf.addPage(); y = 10; }
+
+            const table = card.querySelector(".table-number").innerText;
+            const name  = card.querySelector(".client").innerText;
+            const date  = card.querySelector(".date").innerText;
+            const items = [...card.querySelectorAll("ul li")].map(li => li.innerText);
+
+            pdf.text(table, 10, y);
+            y += 6;
+            pdf.text(name, 10, y);
+            y += 6;
+            pdf.text(date, 10, y);
+            y += 6;
+
+            items.forEach(i => {
+                pdf.text(" - " + i, 14, y);
+                y += 6;
+            });
+
+            y += 6;
+        });
+
+        pdf.save("commandes.pdf");
+    });
+
 </script>
 
 </body>
