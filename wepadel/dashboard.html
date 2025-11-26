@@ -41,24 +41,34 @@
         color:#5D3A2C;
     }
 
-    .active {
-        background:#5D3A2C !important;
-        color:white !important;
-    }
+    .active { background:#5D3A2C !important; color:white !important; }
 
     #export-bar {
-        display:flex;
-        justify-content:center;
-        gap:10px;
-        margin-bottom:20px;
+        display:flex; justify-content:center; gap:10px; margin-bottom:20px;
     }
 
     .order-card {
+        position:relative;
         background:white;
         padding:20px;
         margin-bottom:20px;
         border-radius:12px;
         box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Petit bouton X */
+    .delete-btn {
+        position:absolute;
+        top:10px;
+        right:10px;
+        background:#d9534f;
+        color:white;
+        border:none;
+        border-radius:50%;
+        width:24px;
+        height:24px;
+        font-size:14px;
+        cursor:pointer;
     }
 
     .badge {
@@ -70,10 +80,10 @@
         margin-bottom:10px;
     }
 
-    .badge-new    { background:#A87555; }
+    .badge-new { background:#A87555; }
     .badge-served { background:#3B82F6; }
-    .badge-paid   { background:#EAB308; color:black; }
-    .badge-done   { background:#22C55E; }
+    .badge-paid { background:#EAB308; color:black; }
+    .badge-done { background:#22C55E; }
 
     .btn-actions {
         display:flex;
@@ -91,10 +101,10 @@
         font-size:14px;
     }
 
-    .btn-new    { background:#A87555; }
+    .btn-new { background:#A87555; }
     .btn-served { background:#3B82F6; }
-    .btn-paid   { background:#EAB308; color:black; }
-    .btn-done   { background:#22C55E; }
+    .btn-paid { background:#EAB308; color:black; }
+    .btn-done { background:#22C55E; }
 </style>
 </head>
 
@@ -109,12 +119,12 @@
     <button class="filter-btn" onclick="setFilter('all')">Toutes</button>
 </div>
 
-<!-- Choix de la date -->
+<!-- DATE -->
 <div class="filter-bar">
     <input type="date" id="dateFilter" onchange="loadOrders()" class="filter-btn" style="padding:8px 12px;">
 </div>
 
-<!-- Trier par date -->
+<!-- TRI -->
 <div class="filter-bar">
     <button class="filter-btn" onclick="toggleSort()">📅 Trier par date (asc/desc)</button>
 </div>
@@ -166,16 +176,13 @@ function loadOrders() {
             const o = doc.data();
             o.id = doc.id;
 
-            /* Filtre par statut */
             if (currentFilter === "active" && o.status === "done") return;
             if (currentFilter === "done" && o.status !== "done") return;
 
-            /* Filtre par date choisie */
             if (selectedDate) {
-                const orderDate = o.time?.split(" ")[0]; // format DD/MM/YYYY
-                const [day, month, year] = orderDate.split("/");
-                const iso = `${year}-${month}-${day}`;
-                if (iso !== selectedDate) return;
+                const orderDate = o.time?.split(" ")[0];
+                const [d,m,y] = orderDate.split("/");
+                if (`${y}-${m}-${d}` !== selectedDate) return;
             }
 
             all.push(o);
@@ -187,7 +194,7 @@ function loadOrders() {
       });
 }
 
-/* CARTE DE COMMANDE */
+/* CARTE */
 function generateCard(o) {
 
     const total = o.items.reduce((sum, i) => sum + i.price, 0);
@@ -200,8 +207,9 @@ function generateCard(o) {
 
     return `
     <div class="order-card">
-        <h2>Table ${o.table}</h2>
+        <button class="delete-btn" onclick="deleteOrder('${o.id}')">×</button>
 
+        <h2>Table ${o.table}</h2>
         ${badge}
 
         <ul>
@@ -221,9 +229,16 @@ function generateCard(o) {
     </div>`;
 }
 
-/* MISE À JOUR STATUT */
+/* UPDATE STATUT */
 function updateStatus(id, status) {
     db.collection("orders").doc(id).update({ status });
+}
+
+/* DELETE ORDER */
+function deleteOrder(id) {
+    if (!confirm("Supprimer définitivement cette commande ?")) return;
+
+    db.collection("orders").doc(id).delete();
 }
 
 /* EXPORT XLS */
@@ -257,13 +272,12 @@ function exportPDF() {
     pdf.save("commandes.pdf");
 }
 
-/* TRI ASC/DESC */
+/* TRI */
 function toggleSort() {
     sortDirection = sortDirection === "desc" ? "asc" : "desc";
     loadOrders();
 }
 
-/* INIT */
 loadOrders();
 </script>
 
