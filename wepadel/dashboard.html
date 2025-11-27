@@ -15,26 +15,56 @@
 
 <style>
     body {
-        font-family: 'Playfair Display', serif;
-        background: #F2EBE4;
         margin: 0;
         padding: 20px;
-        color: #3E2A21;
+        background: #F5F5F7;
+        font-family: Arial, sans-serif;
+        color: #333;
     }
 
     h1 {
         text-align: center;
-        margin-bottom: 25px;
-        font-size: 2.2rem;
+        font-size: 2rem;
+        margin-bottom: 20px;
         font-weight: 700;
-        color: #3E2A21;
     }
 
+    /* --- TOP BAR KPIs --- */
+    .kpi-bar {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .kpi {
+        background: white;
+        padding: 14px 22px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    /* --- SEARCH --- */
+    #searchBox {
+        width: 96%;
+        padding: 12px;
+        margin: 10px auto 20px;
+        display: block;
+        border-radius: 10px;
+        border: 2px solid #CCC;
+        font-size: 1rem;
+    }
+
+    /* --- FILTER BAR --- */
     .filter-bar {
         display:flex;
-        flex-wrap:wrap;
         gap:10px;
         justify-content:center;
+        flex-wrap:wrap;
         margin-bottom:20px;
     }
 
@@ -43,132 +73,187 @@
         border:none;
         border-radius:10px;
         cursor:pointer;
-        font-size:16px;
-        background:#E8DAD2;
-        color:#3E2A21;
+        background:#E5E5E5;
         font-weight:600;
         transition:0.2s;
     }
 
     .filter-btn:hover {
-        background:#D8C5BA;
+        background:#D0D0D0;
     }
 
     .active {
-        background:#3E2A21 !important;
+        background:#333 !important;
         color:white !important;
     }
 
-    .order-card {
-        position:relative;
+    /* DATE */
+    #dateFilter {
+        padding:10px 15px;
+        border-radius:10px;
+        border:2px solid #CCC;
         background:white;
-        padding:22px;
-        margin-bottom:22px;
-        border-radius:14px;
-        box-shadow:0 6px 14px rgba(0,0,0,0.12);
-        border-left:10px solid #A87555;
+        font-size:1rem;
+    }
+
+    /* --- GRID RESPONSIVE --- */
+    #orders {
+        display:grid;
+        grid-template-columns: 1fr;
+        gap:18px;
+    }
+
+    @media(min-width:700px){
+        #orders {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media(min-width:1100px){
+        #orders {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+
+    /* --- ORDER CARD (POS STYLE) --- */
+    .order-card {
+        background:white;
+        border-radius:12px;
+        padding:20px;
+        box-shadow:0 6px 18px rgba(0,0,0,0.12);
+        position:relative;
+        border-left:8px solid #333;
         transition:0.2s;
     }
 
     .order-card:hover {
-        transform:scale(1.01);
+        transform:scale(1.02);
     }
 
+    /* DELETE BUTTON */
     .delete-btn {
         position:absolute;
         top:12px;
         right:12px;
-        background:#c0392b;
+        background:#C0392B;
         color:white;
         border:none;
         border-radius:50%;
-        width:26px;
-        height:26px;
-        font-size:15px;
+        width:28px;
+        height:28px;
+        font-size:16px;
         cursor:pointer;
         font-weight:bold;
     }
 
+    /* BADGES */
     .badge {
         display:inline-block;
-        padding:8px 16px;
+        padding:6px 14px;
         border-radius:20px;
-        font-size:14px;
-        font-weight:600;
         color:white;
-        margin-bottom:15px;
+        font-size:0.85rem;
+        font-weight:600;
+        margin-bottom:10px;
     }
+    .badge-new { background:#333; }
+    .badge-served { background:#3498DB; }
+    .badge-paid { background:#F1C40F; color:black; }
+    .badge-done { background:#27AE60; }
 
-    .badge-new { background:#A87555; }
-    .badge-served { background:#3B82F6; }
-    .badge-paid { background:#EAB308; color:black; }
-    .badge-done { background:#22C55E; }
-
+    /* ITEMS LIST */
     ul {
         padding-left:20px;
-        margin-top:10px;
-        margin-bottom:20px;
+        margin-bottom:10px;
     }
-
     li {
-        font-size:1.05rem;
-        margin-bottom:6px;
+        margin-bottom:4px;
+        font-size:0.95rem;
     }
 
+    /* ACTION BUTTONS */
     .btn-actions {
         display:flex;
         gap:8px;
         flex-wrap:wrap;
-        margin-top:10px;
+        margin-top:15px;
     }
-
     .action-btn {
-        padding:12px 18px;
-        border:none;
+        padding:10px 18px;
         border-radius:10px;
+        border:none;
         cursor:pointer;
-        font-size:15px;
+        font-size:0.9rem;
         font-weight:600;
         color:white;
         flex:1;
-        min-width:110px;
-        text-align:center;
     }
+    .btn-new { background:#333; }
+    .btn-served { background:#3498DB; }
+    .btn-paid { background:#F1C40F; color:black; }
+    .btn-done { background:#27AE60; }
 
-    .btn-new { background:#A87555; }
-    .btn-served { background:#3B82F6; }
-    .btn-paid { background:#EAB308; color:black; }
-    .btn-done { background:#22C55E; }
-
+    /* DARK MODE */
+    body.dark {
+        background:#1e1e1e;
+        color:white;
+    }
+    body.dark .order-card {
+        background:#2A2A2A;
+        color:white;
+        border-left-color:#888;
+    }
+    body.dark .kpi,
+    body.dark #searchBox,
+    body.dark #dateFilter {
+        background:#2A2A2A;
+        color:white;
+        border-color:#666;
+    }
 </style>
 </head>
 
 <body>
 
-<h1>📋 Commandes – CaféMisu × We Padel</h1>
+<h1>📋 Dashboard – CaféMisu × We Padel (PRO)</h1>
 
+<!-- KPIs -->
+<div class="kpi-bar">
+    <div class="kpi" id="kpi-total">Total : 0</div>
+    <div class="kpi" id="kpi-active">Actives : 0</div>
+    <div class="kpi" id="kpi-new">NEW : 0</div>
+    <div class="kpi" id="kpi-served">Served : 0</div>
+    <div class="kpi" id="kpi-paid">Paid : 0</div>
+    <div class="kpi" id="kpi-done">Done : 0</div>
+</div>
+
+<!-- SEARCH -->
+<input id="searchBox" placeholder="Rechercher : produit, table, client…">
+
+<!-- FILTERS -->
 <div class="filter-bar">
     <button class="filter-btn active" onclick="setFilter('active')">Actives</button>
     <button class="filter-btn" onclick="setFilter('done')">Terminées</button>
     <button class="filter-btn" onclick="setFilter('all')">Toutes</button>
 </div>
 
+<!-- DATE -->
 <div class="filter-bar">
-    <input type="date" id="dateFilter" onchange="loadOrders()" class="filter-btn" style="padding:10px 15px;">
+    <input type="date" id="dateFilter" onchange="loadOrders()">
 </div>
 
+<!-- EXPORT -->
 <div class="filter-bar">
-    <button class="filter-btn" onclick="toggleSort()">📅 Tri date (asc/desc)</button>
-</div>
-
-<div class="filter-bar">
-    <button class="filter-btn" onclick="exportXLS()">📄 Export XLS</button>
-    <button class="filter-btn" onclick="exportPDF()">🖨️ Export PDF</button>
+    <button class="filter-btn" onclick="toggleSort()">Tri date</button>
+    <button class="filter-btn" onclick="exportXLS()">Export XLS</button>
+    <button class="filter-btn" onclick="exportPDF()">Export PDF</button>
+    <button class="filter-btn" onclick="toggleDark()">Mode Nuit</button>
 </div>
 
 <div id="orders"></div>
 
 <script>
+/* FIREBASE */
 const firebaseConfig = {
     apiKey: "AIzaSyDb7QDl0VF5vhQahUaua5z2EzYQovdt9Y",
     authDomain: "cafemisu-wepadel.firebaseapp.com",
@@ -177,67 +262,118 @@ const firebaseConfig = {
     messagingSenderId: "158465399626",
     appId: "1:158465399626:web:382a8671ca9b32b3aba4273"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+/* FILTERS */
 let currentFilter = "active";
 let sortDirection = "desc";
+let allOrders = [];
 
+/* DARK MODE */
+function toggleDark() {
+    document.body.classList.toggle("dark");
+}
+
+/* SET FILTER */
 function setFilter(f) {
     currentFilter = f;
     document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
     event.target.classList.add("active");
-    loadOrders();
+    displayOrders();
 }
 
+/* LOAD ORDERS */
 function loadOrders() {
     db.collection("orders")
       .orderBy("timestamp", sortDirection)
       .onSnapshot(snap => {
-        let html = "";
-        const all = [];
 
         const selectedDate = document.getElementById("dateFilter").value;
+        const list = [];
 
         snap.forEach(doc => {
             const o = doc.data();
             o.id = doc.id;
 
-            if (currentFilter === "active" && o.status === "done") return;
-            if (currentFilter === "done" && o.status !== "done") return;
-
             if (selectedDate) {
-                const orderDate = o.time?.split(" ")[0];
-                const [d,m,y] = orderDate.split("/");
+                const [d,m,y] = o.time.split(" ")[0].split("/");
                 if (`${y}-${m}-${d}` !== selectedDate) return;
             }
 
-            all.push(o);
-            html += generateCard(o);
+            list.push(o);
         });
 
-        window._exportData = all;
-        document.getElementById("orders").innerHTML = html;
-      });
+        allOrders = list;
+
+        updateKPIs();
+        displayOrders();
+    });
 }
 
+/* DISPLAY ORDERS */
+function displayOrders() {
+    let html = "";
+
+    const search = document.getElementById("searchBox").value.toLowerCase();
+
+    let data = allOrders.filter(o => {
+        if (currentFilter === "active" && o.status === "done") return false;
+        if (currentFilter === "done" && o.status !== "done") return false;
+
+        if (
+            !o.items.some(i => i.name.toLowerCase().includes(search)) &&
+            !String(o.table).includes(search) &&
+            !(o.customer || "").toLowerCase().includes(search)
+        ) {
+            return false;
+        }
+
+        return true;
+    });
+
+    data.forEach(o => html += generateCard(o));
+
+    document.getElementById("orders").innerHTML = html;
+}
+
+/* HUMAN TIME */
+function timeAgo(orderTime) {
+    const now = new Date();
+    const [date, time] = orderTime.split(" ");
+    const [d,m,y] = date.split("/");
+    const [hh,mm] = time.split(":");
+
+    const orderDate = new Date(y, m-1, d, hh, mm);
+    const diffMin = Math.floor((now - orderDate) / 60000);
+
+    if (diffMin < 1) return "À l’instant";
+    if (diffMin < 60) return diffMin + " min";
+    return Math.floor(diffMin/60) + "h " + (diffMin%60) + "min";
+}
+
+/* ORDER CARD */
 function generateCard(o) {
 
-    const total = o.items.reduce((sum, i) => sum + i.price, 0);
+    const total = o.items.reduce((s, i) => s + i.price, 0);
+    const ago = timeAgo(o.time);
+
+    const urgency = ago.includes("min") && parseInt(ago) >= 15 
+        ? "color:red;font-weight:bold;" 
+        : "";
 
     const badge =
-        o.status === "new"    ? `<span class="badge badge-new">🟫 NEW</span>` :
-        o.status === "served" ? `<span class="badge badge-served">🟦 SERVED</span>` :
-        o.status === "paid"   ? `<span class="badge badge-paid">🟨 PAID</span>` :
-                                `<span class="badge badge-done">🟩 DONE</span>`;
+        o.status === "new"    ? `<span class="badge badge-new">NEW</span>` :
+        o.status === "served" ? `<span class="badge badge-served">SERVED</span>` :
+        o.status === "paid"   ? `<span class="badge badge-paid">PAID</span>` :
+                                `<span class="badge badge-done">DONE</span>`;
 
     return `
     <div class="order-card">
 
         <button class="delete-btn" onclick="deleteOrder('${o.id}')">×</button>
 
-        <h2>🪑 Table ${o.table}</h2>
+        <h2>Table ${o.table} <span style="${urgency}">${ago}</span></h2>
         ${badge}
 
         <ul>
@@ -257,36 +393,64 @@ function generateCard(o) {
     </div>`;
 }
 
+/* UPDATE STATUS */
 function updateStatus(id, status) {
     db.collection("orders").doc(id).update({ status });
 }
 
+/* DELETE ORDER */
 function deleteOrder(id) {
     if (!confirm("Supprimer définitivement cette commande ?")) return;
     db.collection("orders").doc(id).delete();
 }
 
+/* KPIs */
+function updateKPIs() {
+    document.getElementById("kpi-total").innerText =
+        "Total : " + allOrders.length;
+
+    document.getElementById("kpi-active").innerText =
+        "Actives : " + allOrders.filter(o => o.status !== "done").length;
+
+    document.getElementById("kpi-new").innerText =
+        "NEW : " + allOrders.filter(o => o.status === "new").length;
+
+    document.getElementById("kpi-served").innerText =
+        "Served : " + allOrders.filter(o => o.status === "served").length;
+
+    document.getElementById("kpi-paid").innerText =
+        "Paid : " + allOrders.filter(o => o.status === "paid").length;
+
+    document.getElementById("kpi-done").innerText =
+        "Done : " + allOrders.filter(o => o.status === "done").length;
+}
+
+/* SEARCH LISTENER */
+document.getElementById("searchBox").addEventListener("input", displayOrders);
+
+/* EXPORT XLS */
 function exportXLS() {
-    const ws = XLSX.utils.json_to_sheet(window._exportData || []);
+    const ws = XLSX.utils.json_to_sheet(allOrders);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Commandes");
     XLSX.writeFile(wb, "commandes.xlsx");
 }
 
+/* EXPORT PDF */
 function exportPDF() {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF();
     let y = 10;
 
-    (window._exportData || []).forEach(o => {
+    allOrders.forEach(o => {
         const total = o.items.reduce((s, i) => s + i.price, 0);
 
-        pdf.text(`Table ${o.table} | ${o.time} | ${o.status} | Total: ${total} FCFA`, 10, y); 
+        pdf.text(`Table ${o.table} | ${o.time} | ${o.status} | Total: ${total} FCFA`, 10, y);
         y += 8;
 
-        o.items.forEach(i => { 
-            pdf.text(`- ${i.name} : ${i.price} FCFA`, 14, y); 
-            y += 6; 
+        o.items.forEach(i => {
+            pdf.text(`- ${i.name} : ${i.price} FCFA`, 14, y);
+            y += 6;
         });
 
         y += 8;
@@ -295,6 +459,7 @@ function exportPDF() {
     pdf.save("commandes.pdf");
 }
 
+/* SORT */
 function toggleSort() {
     sortDirection = sortDirection === "desc" ? "asc" : "desc";
     loadOrders();
