@@ -30,7 +30,7 @@
       max-width: 380px;
       opacity: 0;
       transform: translateY(25px);
-      animation: fadeIn 1.2s ease forwards;
+      animation: fadeIn 0.8s ease forwards;
     }
 
     @keyframes fadeIn {
@@ -38,29 +38,25 @@
     }
 
     h1 {
-      font-size: 3.4rem;
+      font-size: 3.3rem;
       font-weight: 700;
       margin-bottom: 10px;
       letter-spacing: 1px;
       color: #A87555;
-      animation: slideDown 1.2s ease forwards;
     }
 
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    p {
+    p.baseline {
       font-size: 1.2rem;
-      margin-bottom: 35px;
+      margin-bottom: 38px;
       opacity: 0.9;
+      line-height: 1.45;
     }
 
+    /* Buttons */
     .btn {
       display: block;
-      padding: 15px 30px;
-      margin: 12px auto;
+      padding: 16px 30px;
+      margin: 16px auto;
       background: #A87555;
       color: #F9F5F1;
       border-radius: 6px;
@@ -69,6 +65,20 @@
       text-decoration: none;
       width: 80%;
       transition: 0.25s ease;
+      animation: slideUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    /* Appears softly one by one */
+    .btn:nth-of-type(1) { animation-delay: 0.15s; }
+    .btn:nth-of-type(2) { animation-delay: 0.20s; }
+    .btn:nth-of-type(3) { animation-delay: 0.25s; }
+    .btn:nth-of-type(4) { animation-delay: 0.30s; }
+    .btn:nth-of-type(5) { animation-delay: 0.35s; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .btn:hover {
@@ -76,10 +86,10 @@
       transform: translateY(-3px);
     }
 
-    /* WhatsApp */
+    /* WhatsApp button refined */
     .btn-whatsapp {
       background: transparent;
-      border: 2px solid #A87555;
+      border: 1.5px solid #A87555;
       color: #A87555;
       display: flex;
       align-items: center;
@@ -89,7 +99,7 @@
     }
 
     .btn-whatsapp:hover {
-      background: rgba(168,117,85,0.1);
+      background: rgba(168,117,85,0.10);
       transform: translateY(-3px);
     }
 
@@ -98,6 +108,27 @@
       height: 22px;
     }
 
+    /* Disabled button block */
+    .disabled-block {
+      opacity: 0.55;
+      cursor: not-allowed;
+      margin-top: 16px;
+      animation: slideUp 0.6s ease forwards;
+      animation-delay: 0.20s;
+      opacity: 0;
+    }
+
+    .disabled-block > a {
+      pointer-events: none;
+      background: #C9B8AE;
+    }
+
+    .note {
+      font-size: 0.95rem;
+      margin-top: 6px;
+      color: #A87555;
+      opacity: 0.85;
+    }
   </style>
 </head>
 
@@ -107,39 +138,36 @@
 
     <h1>cafémisu</h1>
 
-    <p>Découvrez nos boissons & desserts<br>faits avec passion.</p>
+    <p class="baseline">
+      Découvrez nos boissons & desserts<br>
+      faits avec passion.
+    </p>
 
-   <!-- BOUTON MENU SUCRÉ -->
-<a href="menu.html" class="btn">🍰 Menu sucré ☕</a>
+    <!-- MENU SUCRÉ -->
+    <a href="menu.html" class="btn">🍰 Menu sucré</a>
 
-<!-- BOUTON MENU SALÉ (désactivé) -->
-<div style="opacity:0.55; cursor:not-allowed; margin-top:12px;">
-  <a class="btn" style="pointer-events:none; background:#C9B8AE;">
-    🥪 Menu salé
-  </a>
-  <p style="font-size:0.95rem; margin-top:6px; color:#A87555; opacity:0.85;">
-    Bientôt disponible…
-  </p>
-</div>
+    <!-- MENU SALÉ (désactivé) -->
+    <div class="disabled-block">
+      <a class="btn">🥪 Menu salé</a>
+      <p class="note">Bientôt disponible…</p>
+    </div>
 
-<!-- BOUTON MENU ITC -->
-<a href="menuitc.html" class="btn">🏬 Menu ITC</a>
+    <!-- MENU ITC -->
+    <a href="menuitc.html" class="btn">🏬 Menu ITC</a>
 
-<!-- BOUTON NOUS CONTACTER -->
-<a href="https://wa.me/2250716699999" class="btn btn-whatsapp">
-  <img class="wa-icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-  Nous contacter
-</a>
+    <!-- NOUS CONTACTER -->
+    <a href="https://wa.me/2250716699999" class="btn btn-whatsapp">
+      <img class="wa-icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+      Nous contacter
+    </a>
 
-<!-- CAFEMISU × WE PADEL -->
-<a href="https://cafemisu.fr/wepadel/order.html" class="btn">
-  CaféMisu × We Padel
-</a>
+    <!-- CAFEMISU × WE PADEL -->
+    <a href="https://cafemisu.fr/wepadel/order.html" class="btn">
+      CaféMisu × We Padel
+    </a>
 
-<!-- TEXTE STYLE "Sur place" -->
-<p style="font-size:0.95rem; margin-top:6px; color:#A87555; opacity:0.85;">
-  Sur place 🏠
-</p>
+    <!-- SUR PLACE -->
+    <p class="note">Sur place 🏠</p>
 
   </div>
 
