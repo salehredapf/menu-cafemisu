@@ -433,7 +433,7 @@ function addToCart(name,price,btn){
     let p=document.createElement("div");
     p.className="plus-one";
     p.innerText="+1";
-    btn.parentElement.appendAppendChild(p);
+    btn.parentElement.appendChild(p);
     setTimeout(()=>p.remove(),800);
 }
 
