@@ -95,6 +95,12 @@
       opacity: 0.9;
     }
 
+    /* NOTES LIGNES TROP LONGUES */
+    .small-text {
+      font-size: 1.07rem;
+      line-height: 1.45;
+    }
+
     /* NOTES */
     .note {
       font-size: 1.05rem;
@@ -112,14 +118,23 @@
 
   <a href="index.html" class="back">← Retour à l'accueil</a>
 
-   <!-- LATTÉ -->
+  <!-- LATTÉ -->
   <h2 class="category-title">Latté</h2>
 
   <div class="item"><span class="name">Café latté</span><span class="price">4.500 CFA</span></div>
   <div class="item"><span class="name">Matcha latté</span><span class="price">5.500 CFA</span></div> 
-  <div class="item"><span class="name">Lait végétal (avoine, amande, soja, coco)</span><span class="price">1.000 CFA</span></div>
-  <div class="item"><span class="name">Nos arômes : vanille, vanille 0%, caramel et noisettes</span></div>
- 
+
+  <!-- LIGNE LONGUE ajustée avec .small-text -->
+  <div class="item small-text">
+    <span class="name">Lait végétal (avoine, amande, soja, coco)</span>
+    <span class="price">1.000 CFA</span>
+  </div>
+
+  <!-- LIGNE SANS PRIX, également longue -->
+  <div class="item small-text">
+    <span class="name">Nos arômes : vanille, vanille 0%, caramel et noisettes</span>
+  </div>
+
   <!-- TIRAMISU -->
   <h2 class="category-title">Tiramisu</h2>
 
@@ -133,7 +148,5 @@
   <div class="item"><span class="name">Oreo</span><span class="price">5.000 CFA</span></div>
   <div class="item"><span class="name">Banana Pudding</span><span class="price">5.000 CFA</span></div>
 
- 
-  
 </body>
 </html>
