@@ -77,29 +77,25 @@
       font-size: 1.15rem;
       font-weight: 600;
       text-decoration: none;
-      width: 280px; /* largeur fixe */
+      width: 280px;
       transition: 0.15s ease;
       animation: slideUp 0.6s ease forwards;
       box-shadow: 0 6px 14px rgba(0,0,0,0.08);
       opacity: 0;
       text-align: center;
+      position: relative; /* important pour le badge */
     }
 
-    .btn:active {
-      transform: scale(0.97);
-    }
+    .btn:active { transform: scale(0.97); }
 
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .btn:hover {
-      background: #8f5d45;
-      transform: translateY(-3px);
-    }
+    .btn:hover { background: #8f5d45; }
 
-    /* WHATSAPP BUTTON */
+    /* WHATSAPP */
     .btn-whatsapp {
       background: transparent;
       border: 1.5px solid #A87555;
@@ -111,41 +107,15 @@
       width: 280px;
     }
 
-    .btn-whatsapp:hover {
-      background: rgba(168,117,85,0.10);
-    }
+    .wa-icon { width: 22px; height: 22px; }
 
-    .wa-icon {
-      width: 22px;
-      height: 22px;
-    }
-
-    /* MENU SALÉ DISABLED */
-    .disabled-block {
-      opacity: 0.55;
-      cursor: not-allowed;
-      animation: slideUp 0.6s ease forwards;
-      animation-delay: 0.45s;
-      opacity: 0;
-    }
-
-    .disabled-block > a {
-      pointer-events: none;
-      background: #C9B8AE;
-      width: 280px;
-    }
-
-    .note {
-      font-size: 0.95rem;
-      margin-top: 6px;
-      color: #A87555;
-      opacity: 0.85;
-    }
+    /* DISABLED */
+    .disabled-block { opacity: 0.55; cursor: not-allowed; }
+    .disabled-block > a { pointer-events: none; background: #C9B8AE; }
 
     /* SECTION LABEL */
     .section-label {
       margin-top: 30px;
-      margin-bottom: 0;
       font-size: 1rem;
       opacity: 0.75;
       font-style: italic;
@@ -154,7 +124,7 @@
     /* BADGE */
     .badge {
       position: absolute;
-      top: -18px;
+      top: -14px;
       left: 50%;
       transform: translateX(-50%);
       background: #D49A6A;
@@ -164,18 +134,8 @@
       border-radius: 20px;
       font-weight: 600;
       opacity: 0.95;
-      z-index: 2;
+      z-index: 5;
     }
-
-    /* WRAPPER ITC - CENTRAGE PARFAIT */
-    .btn-wrapper {
-      position: relative;
-      width: 280px; 
-      margin: 26px auto 0;
-      display: flex;
-      justify-content: center; /* recentrage parfait */
-    }
-
   </style>
 </head>
 
@@ -183,7 +143,6 @@
 
   <div class="container">
 
-    <!-- HEADER -->
     <div class="header">
       <h1>cafémisu</h1>
       <p class="baseline">
@@ -192,37 +151,31 @@
       </p>
     </div>
 
-    <!-- MENU SUCRÉ -->
     <a href="menu.html" class="btn">🍰 Menu sucré</a>
 
-    <!-- MENU SALÉ -->
     <div class="disabled-block">
       <a class="btn">🥪 Menu salé</a>
       <p class="note">Bientôt disponible…</p>
     </div>
 
-    <!-- CONTACT -->
     <a href="https://wa.me/2250716699999" class="btn btn-whatsapp">
       <img class="wa-icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
       Nous contacter
     </a>
 
-    <!-- SECTION AUTRES -->
     <p class="section-label">Retrouvez-nous aussi ici :</p>
 
-    <!-- WE PADEL -->
     <a href="https://cafemisu.fr/wepadel/order.html" class="btn">
       CaféMisu × We Padel
     </a>
 
-    <!-- NOTE SUR PLACE -->
     <p class="note">Sur place 🏠</p>
 
-    <!-- ITC -->
-    <div class="btn-wrapper">
+    <!-- ITC BUTTON IDENTIQUE AUX AUTRES -->
+    <a href="menuitc.html" class="btn">
       <span class="badge">Nouveau</span>
-      <a href="menuitc.html" class="btn">CaféMisu × ITC</a>
-    </div>
+      CaféMisu × ITC
+    </a>
 
   </div>
 
