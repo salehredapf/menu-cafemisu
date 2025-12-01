@@ -66,7 +66,7 @@
       line-height: 1.45;
     }
 
-    /* BUTTONS */
+    /* BUTTONS — LARGEUR FIXE */
     .btn {
       display: block;
       padding: 16px 30px;
@@ -77,8 +77,7 @@
       font-size: 1.15rem;
       font-weight: 600;
       text-decoration: none;
-      width: 80%;
-      min-width: 260px; /* FIX TAILLE IDENTIQUE */
+      width: 280px; /* FIX DÉFINITIF */
       transition: 0.15s ease;
       animation: slideUp 0.6s ease forwards;
       box-shadow: 0 6px 14px rgba(0,0,0,0.08);
@@ -107,6 +106,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      width: 280px; /* identique */
     }
 
     .btn-whatsapp:hover {
@@ -122,7 +122,6 @@
     .disabled-block {
       opacity: 0.55;
       cursor: not-allowed;
-      margin-top: 16px;
       animation: slideUp 0.6s ease forwards;
       animation-delay: 0.45s;
       opacity: 0;
@@ -131,6 +130,7 @@
     .disabled-block > a {
       pointer-events: none;
       background: #C9B8AE;
+      width: 280px; /* identique */
     }
 
     .note {
@@ -152,7 +152,7 @@
     /* BADGE */
     .badge {
       position: absolute;
-      top: -18px; /* remonté */
+      top: -18px;
       left: 50%;
       transform: translateX(-50%);
       background: #D49A6A;
@@ -162,13 +162,11 @@
       border-radius: 20px;
       font-weight: 600;
       opacity: 0.95;
-      z-index: 10;
     }
 
     .btn-wrapper {
       position: relative;
-      width: 80%;
-      min-width: 260px; /* même largeur wrapper */
+      width: 280px; /* même largeur */
       margin: 26px auto 0;
     }
   </style>
