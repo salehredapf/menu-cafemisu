@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Playfair Display', serif;
-      background-color: #F9F5F1;
+      background: linear-gradient(180deg, #FAF7F3, #F9F5F1);
       color: #A87555;
 
       background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
@@ -37,7 +37,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* --- HEADER ANIMÉ --- */
+    /* --- HEADER ANIMÉ + GLOW --- */
     .header {
       opacity: 0;
       transform: translateY(-18px);
@@ -56,6 +56,7 @@
       margin-bottom: 10px;
       letter-spacing: 1px;
       color: #A87555;
+      text-shadow: 0 0 8px rgba(168,117,85,0.25);
     }
 
     p.baseline {
@@ -72,14 +73,20 @@
       margin: 16px auto;
       background: #A87555;
       color: #F9F5F1;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 1.15rem;
       font-weight: 600;
       text-decoration: none;
       width: 80%;
-      transition: 0.25s ease;
+      transition: 0.15s ease;
       animation: slideUp 0.6s ease forwards;
       opacity: 0;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    }
+
+    /* TAP ANIMATION iOS */
+    .btn:active {
+      transform: scale(0.97);
     }
 
     .btn:nth-of-type(1) { animation-delay: 0.35s; }
@@ -98,6 +105,17 @@
       transform: translateY(-3px);
     }
 
+    /* MINI ANIMATION EMOJI 🍰 */
+    .btn.menu-sucre span {
+      display: inline-block;
+      animation: floatCake 3s ease-in-out infinite;
+    }
+
+    @keyframes floatCake {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
     /* WHATSAPP */
     .btn-whatsapp {
       background: transparent;
@@ -107,7 +125,6 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      width: 80%;
     }
 
     .btn-whatsapp:hover {
@@ -135,11 +152,41 @@
       background: #C9B8AE;
     }
 
+    /* NOTES */
     .note {
       font-size: 0.95rem;
       margin-top: 6px;
       color: #A87555;
       opacity: 0.85;
+    }
+
+    /* SECTION SEPARATION */
+    .section-label {
+      margin-top: 30px;
+      margin-bottom: 0;
+      font-size: 1rem;
+      opacity: 0.75;
+      font-style: italic;
+    }
+
+    /* BADGE NOUVEAU */
+    .badge {
+      position: absolute;
+      margin-left: 8px;
+      margin-top: -14px;
+      background: #D49A6A;
+      color: white;
+      padding: 2px 9px;
+      font-size: 0.73rem;
+      border-radius: 20px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .btn-wrapper {
+      position: relative;
+      width: 80%;
+      margin: 0 auto;
     }
 
   </style>
@@ -159,7 +206,7 @@
     </div>
 
     <!-- MENU SUCRÉ -->
-    <a href="menu.html" class="btn">🍰 Menu sucré</a>
+    <a href="menu.html" class="btn menu-sucre"><span>🍰</span> Menu sucré</a>
 
     <!-- MENU SALÉ (désactivé) -->
     <div class="disabled-block">
@@ -174,21 +221,23 @@
     </a>
 
     <!-- SECTION AUTRES EMPLACEMENTS -->
-    <p class="note" style="margin-top:32px; font-size:1rem; opacity:0.75;">
-      Retrouvez-nous aussi ici :
-    </p>
+    <p class="section-label">Retrouvez-nous aussi ici :</p>
 
     <!-- CAFEMISU × WE PADEL -->
     <a href="https://cafemisu.fr/wepadel/order.html" class="btn">
       CaféMisu × We Padel
     </a>
 
-    <!-- SUR PLACE -->
+    <!-- NOTE SUR PLACE -->
     <p class="note">Sur place 🏠</p>
-    
-    <!-- MENU ITC -->
-    <a href="menuitc.html" class="btn">CaféMisu × ITC</a>
 
+    <!-- MENU ITC (BADGE “Nouveau”) -->
+    <div class="btn-wrapper">
+      <span class="badge">Nouveau</span>
+      <a href="menuitc.html" class="btn">CaféMisu × ITC</a>
+    </div>
+
+    <p class="note" style="font-size:0.85rem; margin-top:8px;">Stand uniquement 🍮</p>
 
   </div>
 
