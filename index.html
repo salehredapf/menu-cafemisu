@@ -37,7 +37,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* --- HEADER ANIMÉ + GLOW --- */
+    /* HEADER */
     .header {
       opacity: 0;
       transform: translateY(-18px);
@@ -80,20 +80,11 @@
       width: 80%;
       transition: 0.15s ease;
       animation: slideUp 0.6s ease forwards;
-      opacity: 0;
       box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+      opacity: 0;
     }
 
-    /* TAP ANIMATION iOS */
-    .btn:active {
-      transform: scale(0.97);
-    }
-
-    .btn:nth-of-type(1) { animation-delay: 0.35s; }
-    .btn:nth-of-type(2) { animation-delay: 0.45s; }
-    .btn:nth-of-type(3) { animation-delay: 0.55s; }
-    .btn:nth-of-type(4) { animation-delay: 0.65s; }
-    .btn:nth-of-type(5) { animation-delay: 0.75s; }
+    .btn:active { transform: scale(0.97); }
 
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(12px); }
@@ -105,18 +96,7 @@
       transform: translateY(-3px);
     }
 
-    /* MINI ANIMATION EMOJI 🍰 */
-    .btn.menu-sucre span {
-      display: inline-block;
-      animation: floatCake 3s ease-in-out infinite;
-    }
-
-    @keyframes floatCake {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-    }
-
-    /* WHATSAPP */
+    /* WHATSAPP BUTTON */
     .btn-whatsapp {
       background: transparent;
       border: 1.5px solid #A87555;
@@ -129,7 +109,6 @@
 
     .btn-whatsapp:hover {
       background: rgba(168,117,85,0.10);
-      transform: translateY(-3px);
     }
 
     .wa-icon {
@@ -137,7 +116,7 @@
       height: 22px;
     }
 
-    /* DISABLED MENU */
+    /* MENU SALÉ DISABLED */
     .disabled-block {
       opacity: 0.55;
       cursor: not-allowed;
@@ -152,7 +131,14 @@
       background: #C9B8AE;
     }
 
-    /* SECTION SEPARATION */
+    .note {
+      font-size: 0.95rem;
+      margin-top: 6px;
+      color: #A87555;
+      opacity: 0.85;
+    }
+
+    /* SECTION LABEL */
     .section-label {
       margin-top: 30px;
       margin-bottom: 0;
@@ -161,19 +147,12 @@
       font-style: italic;
     }
 
-    /* NOTE “Sur place” etc */
-    .note {
-      font-size: 0.95rem;
-      margin-top: 6px;
-      color: #A87555;
-      opacity: 0.85;
-    }
-
-    /* BADGE NOUVEAU */
+    /* BADGE */
     .badge {
       position: absolute;
-      left: 10px;
-      margin-top: -14px;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
       background: #D49A6A;
       color: white;
       padding: 2px 9px;
@@ -183,22 +162,11 @@
       opacity: 0.9;
     }
 
-    /* WRAPPER BOUTON ITC — FIX */
     .btn-wrapper {
       position: relative;
       width: 80%;
-      margin: 16px auto 0 !important; /* FIX POUR TAILLE IDENTIQUE */
-      display: flex;
-      justify-content: center;
+      margin: 26px auto 0;
     }
-
-    /* BOUTON ITC même taille visuelle */
-    .btn-wrapper a {
-      margin: 16px auto;
-      width: 100%;
-      display: block;
-    }
-
   </style>
 </head>
 
@@ -206,7 +174,7 @@
 
   <div class="container">
 
-    <!-- HEADER ANIMÉ -->
+    <!-- HEADER -->
     <div class="header">
       <h1>cafémisu</h1>
       <p class="baseline">
@@ -216,7 +184,7 @@
     </div>
 
     <!-- MENU SUCRÉ -->
-    <a href="menu.html" class="btn menu-sucre"><span>🍰</span> Menu sucré</a>
+    <a href="menu.html" class="btn">🍰 Menu sucré</a>
 
     <!-- MENU SALÉ (désactivé) -->
     <div class="disabled-block">
@@ -224,16 +192,16 @@
       <p class="note">Bientôt disponible…</p>
     </div>
 
-    <!-- NOUS CONTACTER -->
+    <!-- CONTACT -->
     <a href="https://wa.me/2250716699999" class="btn btn-whatsapp">
       <img class="wa-icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
       Nous contacter
     </a>
 
-    <!-- SECTION AUTRES EMPLACEMENTS -->
+    <!-- AUTRES EMPLACEMENTS -->
     <p class="section-label">Retrouvez-nous aussi ici :</p>
 
-    <!-- CAFEMISU × WE PADEL -->
+    <!-- WE PADEL -->
     <a href="https://cafemisu.fr/wepadel/order.html" class="btn">
       CaféMisu × We Padel
     </a>
@@ -241,10 +209,10 @@
     <!-- NOTE SUR PLACE -->
     <p class="note">Sur place 🏠</p>
 
-    <!-- MENU ITC (BADGE “Nouveau”) -->
+    <!-- ITC (badge + alignement équilibré) -->
     <div class="btn-wrapper">
       <span class="badge">Nouveau</span>
-      <a href="menuitc.html" class="btn">CaféMisu × ITC</a>
+      <a href="menuitc.html" class="btn">CaféMisu × ITC&nbsp;&nbsp;</a>
     </div>
 
   </div>
