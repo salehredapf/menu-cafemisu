@@ -17,23 +17,39 @@
         line-height: 1.65;
     }
 
-    /* 🔥 Bouton identique au menu sucré */
-    #back-home {
-        display:block;
-        text-align:center;
-        margin-top:15px;
-        margin-bottom:10px;
-        text-decoration:none;
-        font-size:1.1rem;
-        font-weight:600;
-        color:#A87555;
-        opacity:0.75;
+    /* --------------------------------------
+        BOUTON RETOUR À L’ACCUEIL — STYLE CAFÉMISU
+    --------------------------------------- */
+    .back-btn {
+        display: block;
+        width: 80%;
+        margin: 25px auto 0;
+        padding: 12px 20px;
+        text-align: center;
+        text-decoration: none;
+        border: 2px solid #A87555;
+        border-radius: 10px;
+        color: #A87555;
+        font-size: 1.15rem;
+        font-weight: 700;
+        transition: 0.25s ease;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .back-btn:hover {
+        background: rgba(168,117,85,0.08);
+        transform: translateY(-3px);
+    }
+
+    .back-btn:active {
+        transform: scale(0.96);
     }
 
     h1 {
         text-align: center;
-        margin-top: 5px;
-        font-size: 2.4rem;
+        margin-top: 25px;
+        font-size: 2.5rem;
         font-weight: 700;
     }
 
@@ -75,6 +91,7 @@
         font-size: 1rem;
     }
 
+    /* Cart bottom bar */
     #cart {
         position: fixed;
         bottom: 0;
@@ -101,6 +118,7 @@
         font-size: 1.1rem;
     }
 
+    /* Checkout form */
     #checkout {
         display: none;
         padding: 20px;
@@ -131,6 +149,7 @@
         margin-top: 12px;
     }
 
+    /* Popup variations lait végétal */
     #variant-overlay {
         position: fixed;
         top: 0; left: 0;
@@ -174,12 +193,11 @@
 
 <body>
 
-<!-- 🔥 Bouton identique au menu sucré -->
-<a href="/wepadel/" id="back-home">← Retour à l’accueil</a>
+<!-- ------------------ BOUTON RETOUR ------------------ -->
+<a href="https://cafemisu.fr" class="back-btn">← Retour à l’accueil</a>
 
 <h1>CaféMisu × We Padel</h1>
 
-<!-- IMPORTANT : le menu doit arriver ICI -->
 <div id="menu"></div>
 
 <div id="cart">
@@ -199,7 +217,7 @@
     <button id="confirm-btn">Envoyer la commande</button>
 </div>
 
-<!-- Popup variations -->
+<!-- Popup variations lait végétal -->
 <div id="variant-overlay">
     <div id="variant-popup">
         <h2 style="margin-top:0">Choix du lait végétal</h2>
@@ -231,22 +249,27 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const LAIT_NAMES = ["Lait végétal"];
+    const LAIT_NAMES = [
+        "Lait végétal",
+    ];
 
     const menuItems = [
         { category: "Les frappés", name: "Latté Frappé", price: 4500 },
         { category: "Les frappés", name: "Matcha Frappé", price: 5500 },
         { category: "Les frappés", name: "Caramel Frappé", price: 5500 },
         { category: "Les frappés", name: "Lait végétal", price: 1000 },
+
         { category: "Les matchas", name: "Iced Matcha Latte", price: 5500 },
         { category: "Les matchas", name: "Coconut Matcha Cloud", price: 5500 },
         { category: "Les matchas", name: "Strawberry Matcha", price: 6500 },
         { category: "Les matchas", name: "Mango Matcha", price: 6500 },
         { category: "Les matchas", name: "Lait végétal", price: 1000 },
+
         { category: "Les lattés", name: "Iced Americano", price: 4000 },
         { category: "Les lattés", name: "Spanish Iced Latte", price: 5500 },
         { category: "Les lattés", name: "Iced Coffee Latte", price: 4500 },
         { category: "Les lattés", name: "Lait végétal", price: 1000 },
+
         { category: "Boissons chaudes", name: "Café au lait", price: 3500 },
         { category: "Boissons chaudes", name: "Thé", price: 1500 },
         { category: "Boissons chaudes", name: "Chocolat chaud", price: 3500 },
@@ -254,10 +277,12 @@
         { category: "Boissons chaudes", name: "Americano", price: 2000 },
         { category: "Boissons chaudes", name: "Cappuccino", price: 3500 },
         { category: "Boissons chaudes", name: "Lait végétal", price: 1000 },
-        { category: "Les spéciaux", name: "Caramel Machiatto", price: 6500 },
+
+        { category: "Les spéciaux", name: "Caramel Machiatto", price: 6500 }, 
         { category: "Les spéciaux", name: "Iced Chocolate", price: 5000 },
         { category: "Les spéciaux", name: "UBE Latte", price: 7000 },
         { category: "Les spéciaux", name: "Lait végétal", price: 1000 },
+
         { category: "Boissons gazeuses", name: "Coca", price: 1000 },
         { category: "Boissons gazeuses", name: "Sprite", price: 1000 },
         { category: "Boissons gazeuses", name: "Fanta", price: 1000 },
@@ -266,17 +291,19 @@
         { category: "Boissons gazeuses", name: "Redbull", price: 2000 },
         { category: "Boissons gazeuses", name: "Perrier", price: 2000 },
         { category: "Boissons gazeuses", name: "Eau", price: 1000 },
+
         { category: "Spéciaux du weekend", name: "Tiramisu Cake Latte", price: 7000 },
         { category: "Spéciaux du weekend", name: "Tiramisu Cake Matcha Latte", price: 7500 },
         { category: "Spéciaux du weekend", name: "Matcha Banana Pudding", price: 7500 },
         { category: "Spéciaux du weekend", name: "LE LATTE XXXL", price: 25000 },
         { category: "Spéciaux du weekend", name: "LE MATCHA XXXL", price: 30000 },
         { category: "Spéciaux du weekend", name: "Lait végétal", price: 1000 },
+
         { category: "Tiramisu", name: "Tiramisu Café", price: 4000 },
         { category: "Tiramisu", name: "Tiramisu Matcha", price: 5000 },
         { category: "Tiramisu", name: "Tiramisu Nutella", price: 5000 },
         { category: "Tiramisu", name: "Tiramisu Fraise", price: 5500 },
-        { category: "Tiramisu", name: "Tiramisu Spéculos", price: 5000 },
+        { category: "Tiramisu", name: "Tiramisu Spéculos", price: 5000 }, 
         { category: "Tiramisu", name: "Tiramisu Ferrero", price: 5500 },
         { category: "Tiramisu", name: "Tiramisu Bueno", price: 5500 },
         { category: "Tiramisu", name: "Tiramisu Pistache", price: 5500 },
